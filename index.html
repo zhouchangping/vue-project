@@ -1,0 +1,204 @@
+<!-- <!DOCTYPE html> -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- meta标签使用：https://segmentfault.com/a/1190000004279791 -->
+  <meta name="flexible" content="">
+  <meta name="description" content="个人博客">
+  <meta name="keywords" content="vue,js">
+  <meta name="author" content="周昌平,895817341@qq.com">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+  <!-- 避免IE使用兼容模式 -->
+  <!-- <meta name="robots" content=”index,follow”/>  -->
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,viewport-fit=cover">
+  <!-- 只要该项存在flexible就会使用它，不管什么设备都是用dpr为1.否则为自动匹配-->
+  <meta http-equiv=”cache-control” content=”no-cache”>
+  <!-- 设置页面不缓存 -->
+  <title>小小周虾</title>
+  <link rel="icon" href="/static/img/avater.jpg" type="image/x-icon">
+  <link rel="stylesheet" href="./static/index.css">
+  <!-- <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script> -->
+  <script>
+    // 记录页面加载开始时间
+    var timerStart = Date.now();
+
+  </script>
+  <% for (var jsFilePath of htmlWebpackPlugin.files.js) { %>
+  <link rel="preload" href="<%= jsFilePath %>" as="script">
+  <% } %>
+  <% for (var cssFilePath of htmlWebpackPlugin.files.css) { %>
+  <link rel="preload" href="<%= cssFilePath %>" as="style"
+    onload="this.onload=null;this.rel='stylesheet';window.STYLE_READY=1;window.mountApp&&window.mountApp();">
+  <noscript>
+    <link rel="stylesheet" href="<%= cssFilePath %>"></noscript>
+  <% } %>
+  <!-- <script>
+    ! function (t) {
+      "use strict";
+      t.loadCSS || (t.loadCSS = function () {});
+      var e = loadCSS.relpreload = {};
+      if (e.support = function () {
+          var e;
+          try {
+            e = t.document.createElement("link").relList.supports("preload")
+          } catch (t) {
+            e = !1
+          }
+          return function () {
+            return e
+          }
+        }(), e.bindMediaToggle = function (t) {
+          function e() {
+            t.media = a
+          }
+          var a = t.media || "all";
+          t.addEventListener ? t.addEventListener("load", e) : t.attachEvent && t.attachEvent("onload", e), setTimeout(
+            function () {
+              t.rel = "stylesheet", t.media = "only x"
+            }), setTimeout(e, 3e3)
+        }, e.poly = function () {
+          if (!e.support())
+            for (var a = t.document.getElementsByTagName("link"), n = 0; n < a.length; n++) {
+              var o = a[n];
+              "preload" !== o.rel || "style" !== o.getAttribute("as") || o.getAttribute("data-loadcss") || (o
+                .setAttribute("data-loadcss", !0), e.bindMediaToggle(o))
+            }
+        }, !e.support()) {
+        e.poly();
+        var a = t.setInterval(e.poly, 500);
+        t.addEventListener ? t.addEventListener("load", function () {
+          e.poly(), t.clearInterval(a)
+        }) : t.attachEvent && t.attachEvent("onload", function () {
+          e.poly(), t.clearInterval(a)
+        })
+      }
+      "undefined" != typeof exports ? exports.loadCSS = loadCSS : t.loadCSS = loadCSS
+    }("undefined" != typeof global ? global : this);
+
+  </script> -->
+
+<body>
+  <div id="app"></div>
+
+  <!-- built files will be auto injected -->
+  <!-- <script>
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState == 'hidden') {
+        normal_title = document.title;
+        document.title = '记得回来哦~';
+      } else {
+        document.title = '哈哈哈，你又回来了！';
+      }
+    });
+
+  </script> -->
+  <!-- 加载静态JS资源 -->
+  <!-- <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+      console.log("DOM 挂载时间: ", Date.now() - timerStart);
+      // 性能日志上报
+    });
+    window.addEventListener('load', function () {
+      console.log("所有资源加载完成时间: ", Date.now() - timerStart);
+      // 性能日志上报
+    });
+  </script> -->
+  <!-- 错误上报-异常捕获 https://juejin.im/post/5b5dcfb46fb9a04f8f37afbb -->
+  <!-- <script type="text/javascript">
+    window.onerror = function (errorMessage, scriptURI, lineNo, columnNo, error) {
+      // console.log("errorMessage: " + errorMessage); // 异常信息
+      // console.log("scriptURI: " + scriptURI); // 异常文件路径
+      // console.log("lineNo: " + lineNo); // 异常行号
+      // console.log("columnNo: " + columnNo); // 异常列号
+      // console.log("error: " + error); // 异常堆栈信息
+      console.log(1)
+      // ...
+      // 异常上报
+    };
+    window.addEventListener('error', function () {
+      // console.log(error);
+      console.log(2)
+      // ...
+      // 异常上报
+    });
+    // try { // 在catch中捕获了，不会冒泡到全局onError,vue中对组件设置了try{} catch() {},也不会冒泡到顶部
+    //   throw new Error('hahhah');
+    // } catch (err) {
+    //   //console.log('3333')
+    // }
+    //throw new Error('这是一个错误'); // 1, 2
+  </script> -->
+
+  <!-- <script>
+    // 1.当前代码块将作为一个任务压入任务队列中，JavaScript线程会不断地从任务队列中提取任务执行；
+    // 2.当任务执行过程中报异常，且异常没有捕获处理，则会一路沿着调用栈从顶到底抛出，最终终止当前任务的执行；
+    // 3.JavaScript线程会继续从任务队列中提取下一个任务继续执行。
+    function a() {
+      throw Error("test")
+    }
+    function b() {
+      a()
+    }
+    b()
+    console.log("永远不会执行！")
+  </script>
+  <script>
+    // 下一个任务
+    console.log("你有你抛异常，我照样执行！")
+  </script> -->
+
+  <script>
+    ;
+(function() {
+
+    handleAddListener('load', getTiming)
+
+    function handleAddListener(type, fn) {
+        if(window.addEventListener) {
+            window.addEventListener(type, fn)
+        } else {
+            window.attachEvent('on' + type, fn)
+        }
+    }
+
+    function getTiming() {
+        try {
+            var time = performance.timing;
+            var timingObj = {};
+
+            var loadTime = (time.loadEventEnd - time.loadEventStart) / 1000;
+
+            if(loadTime < 0) {
+                setTimeout(function() {
+                    getTiming();
+                }, 200);
+                return;
+            }
+
+            timingObj['重定向时间'] = (time.redirectEnd - time.redirectStart) / 1000;
+            timingObj['DNS解析时间'] = (time.domainLookupEnd - time.domainLookupStart) / 1000;
+            timingObj['TCP完成握手时间'] = (time.connectEnd - time.connectStart) / 1000;
+            timingObj['HTTP请求响应完成时间'] = (time.responseEnd - time.requestStart) / 1000;
+            timingObj['DOM开始加载前所花费时间'] = (time.responseEnd - time.navigationStart) / 1000;
+            timingObj['DOM加载完成时间'] = (time.domComplete - time.domLoading) / 1000;
+            timingObj['DOM结构解析完成时间'] = (time.domInteractive - time.domLoading) / 1000;
+            timingObj['脚本加载时间'] = (time.domContentLoadedEventEnd - time.domContentLoadedEventStart) / 1000;
+            timingObj['onload事件时间'] = (time.loadEventEnd - time.loadEventStart) / 1000;
+            timingObj['页面完全加载时间'] = (timingObj['重定向时间'] + timingObj['DNS解析时间'] + timingObj['TCP完成握手时间'] + timingObj['HTTP请求响应完成时间'] + timingObj['DOM结构解析完成时间'] + timingObj['DOM加载完成时间']);
+
+            for(item in timingObj) {
+                console.log(item + ":" + timingObj[item] + '毫秒(ms)');
+            }
+
+            console.log(performance.timing);
+
+        } catch(e) {
+            console.log(timingObj)
+            console.log(performance.timing);
+        }
+    }
+})();
+  </script>
+</body>
+
+</html>

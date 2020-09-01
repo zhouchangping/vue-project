@@ -1,0 +1,18 @@
+{
+  "presets": [
+    ["env", { // Tree Shaking 可以用来剔除JavaScript中用不上的死代码。它依赖静态的ES6模块化语法，例如通过import和export导入导出。
+      "modules": false, // 关闭Babel的模块转换功能，保留ES6模块化语法
+      "targets": {
+        "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
+      }
+    }],
+    "stage-2"
+  ],
+  "plugins": ["transform-vue-jsx", "transform-runtime",
+    ["import", {
+      "libraryName": "vant",
+      "libraryDirectory": "es",
+      "style": true
+    }]
+  ] // vue-jsx模式
+}

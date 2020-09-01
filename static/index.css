@@ -1,0 +1,359 @@
+/* cssnext使用测试 */
+:root {
+  --mianColor: red;
+
+  --bodyCommon: {
+    background-color: #fff;
+    position: relative;
+    /*针对ie6里面有position的bug*/
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    /*针对ie6弹框背景出来了高度不够加的，但是 会影响window.scroll overflow-x: hidden;*/
+    /*子元素根据100%；只根据100%部分*/
+    font-family: "PingFang SC", "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  }
+
+  ;
+}
+
+#appVue {
+  position: relative;
+}
+
+* {
+  box-sizing: border-box;
+  outline: 0;
+  -webkit-tap-highlight-color: transparent;
+  /*当你点击一个链接或者通过Javascript定义的可点击元素的时候，它就会出现一个半透明的灰色背景*/
+}
+
+h1,
+h2,
+h3,
+h4 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+h4 {
+  text-indent: 10px;
+  margin: 0;
+  /* padding:0; */
+  padding-top: 10px;
+}
+
+html {
+  height: 100%;
+  font-weight: normal;
+  font-size: 14px;
+}
+
+/*body {
+  @apply --bodyCommon;
+}*/
+
+a,
+a:active,
+a:link,
+a:hover,
+a:visited {
+  text-decoration: none;
+}
+
+p {
+  /* text-indent: 0.5rem; */
+  overflow: hidden;
+  font-size: 14px;
+  text-align: left;
+  line-height: 0.506667rem;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+  white-space: normal;
+  margin-top: 10px;
+  line-height: 0.8rem;
+  /* 当一个不能被分开的字符串太长而不能填充其包裹盒时，为防止其溢出，浏览器是否允许这样的单词中断换行 */
+  overflow-wrap: break-word;
+  /* letter-spacing 属性明确了文字的间距行为。 */
+  letter-spacing: normal;
+  /* white-space CSS 属性是用来设置如何处理元素中的空白。 */
+  white-space: normal;
+  /* word-break 指定了怎样在单词内断行 */
+  word-break: break-all;
+  /* 申明标签(文字）和单词之间的间距 */
+  word-spacing: normal;
+}
+
+p>a,
+a:active,
+a:link,
+a:hover,
+a:visited {
+  color: #ea6f5a;
+  text-decoration: underline;
+}
+
+#apps {
+  position: relative;
+  padding-top: 1.6rem;
+  display: flex;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-appearance: none;
+  /*一按钮(样式一样)会显示不一样的颜色,去除浏览器默认样式*/
+  appearance: none;
+  color: #2c3e50;
+}
+
+input {
+  caret-color: #32af50;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  border-radius: 0;
+  font-size: 16px;
+  -webkit-touch-callout: none;
+}
+
+input[disabled] {
+  color: #000;
+  background: #fff;
+}
+
+@supports (caret-color: #32af50) {
+
+  input,
+  textarea,
+  [contenteditable] {
+    caret-color: #32af50;
+    /* 光标颜色 */
+  }
+}
+
+input::-webkit-input-placeholder {
+  color: #999;
+}
+
+input::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #999;
+}
+
+input:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #999;
+}
+
+input:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #999;
+}
+
+/*引入vueLi.styl*/
+.clearfix {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
+li pre {
+  position: relative;
+}
+
+pre>code {
+  padding: 0 12px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  color: #666;
+  line-height: 0.8rem;
+  background: #f8f8f8;
+  font-size: 14px;
+  /* padding: .67rem 1.3rem; */
+  margin: 0;
+  word-break: break-all;
+  display: block;
+}
+
+pre>p {
+  padding: 0;
+  margin: 0;
+}
+
+em {
+  font-weight: 600;
+}
+
+.pageContainer {
+  position: relative;
+  /* top: 1.6rem; */
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding-bottom: 2rem;
+  /* padding-top: 1.6rem; */
+}
+
+.pageContainer .page-better {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  padding-top: 1.6rem;
+}
+
+.page-main {
+  padding: 1rem 0.5rem 2rem 0.5rem;
+}
+
+.page-main .page-titile {
+  margin-bottom: 0.8rem;
+  text-align: center;
+}
+
+.page-main .page-username {
+  margin-left: 5px;
+}
+
+.page-main .page-p {
+  margin-bottom: 0.25rem;
+}
+
+.page-user-info {
+  margin: 0 0.133333rem;
+  font-size: 16px;
+  font-weight: 700;
+  color: #484848;
+  vertical-align: middle;
+}
+
+.page-user-img {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 0.5rem;
+  vertical-align: middle;
+}
+
+.page-user-time {
+  color: #b1b1b1;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.page-artical-msg {
+  margin-top: 0.5rem;
+}
+
+.page-artical-msg .li-shangxing {
+  border-style: solid;
+  /* position: absolute; */
+  width: 0;
+  height: 0;
+  border-width: 100px;
+  border-color: red transparent transparent;
+  border-radius: 100%;
+}
+
+.page-artical-msg .li-shangjiaoxing {
+  border-style: solid;
+  /* position: absolute; */
+  width: 0;
+  height: 0;
+  border-width: 100px;
+  border-color: red transparent transparent;
+}
+
+.page-artical-msg .page-p-img {
+  text-indent: 0;
+}
+
+/* .page-footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100vw;
+  box-sizing: border-box;
+  height: 100vh;
+  background-color: #f3f3f3;
+  color: #000;
+  text-align: center;
+  line-height: 1.6rem;
+  z-index: 3;
+  /* box-shadow: 0 0.053333rem 0.106667rem rgba(0, 0, 0, 0.1); */
+} */
+
+
+/* 动画参数 */
+.fadeMask-enter-active,
+.fadeMask-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  transition: opacity 1s;
+}
+
+.fadeMask-enter,
+.fadeMask-leave-to
+
+/* .fade-leave-active below version 2.1.8 */
+  {
+  transform: translateY(0px);
+  opacity: 0;
+}
+
+
+@keyframes myfirst {
+  from {
+    background: red;
+  }
+
+  to {
+    background: yellow;
+  }
+}
+
+@-webkit-keyframes myfirst
+
+/* Safari 与 Chrome */
+  {
+  from {
+    background: red;
+  }
+
+  to {
+    background: yellow;
+  }
+}
+
+.page-animation {
+  animation: myfirst 1s;
+  -webkit-animation: myfirst 1s infinite;
+  width: 50px;
+  height: 50px;
+  background: red;
+}
+
+blockquote {
+  padding: 10px 20px;
+  margin: 0 0 20px;
+  font-size: 17.5px;
+  border-left: 5px solid #ccc;
+  color: #666;
+  background: #f8f8f8;
+  font-size: .95em;
+  margin: 20px 0 20px;
+}
+
+blockquote p {
+  padding: 10px;
+  text-indent: 0;
+}
