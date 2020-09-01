@@ -6,13 +6,9 @@ import App from "./App";
 
 import router from "./router"; // 先执行router等外部文件 -》 main -> main1
 
-// import ElementUI from 'element-ui'
-
 import axios from "axios";
 
 import "./common/font/iconfont.css";
-
-//import 'element-ui/lib/theme-chalk/index.css' // 饿了么样式
 
 // import fastclick from 'fastclick'
 
@@ -110,9 +106,6 @@ Vue.use(Lazyload);
 Vue.use(Lazyload, {
   lazyComponent: true
 });
-
-
-//import $ from "jquery"; // 全局引入jquery
 
 // 或者添加VueLazyload 选项
 Vue.use(VueLazyload, {
