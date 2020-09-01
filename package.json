@@ -11,7 +11,8 @@
     "server": "http-server dist",
     "test": "node ./node_modules/mocha/bin/mocha test",
     "preserve": "webpack --config ./build/webpack.skeleton.conf.js && node skeleton.js",
-    "push": "node ./shell.js"
+    "push": "node ./shell.js",
+    "cp": "cp ./hooks/c"
   },
   "dependencies": {
     "axios": "^0.18.0",
