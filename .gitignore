@@ -4,7 +4,7 @@ node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-说明.md
+myInfo.md
 
 # Editor directories and files
 .idea
