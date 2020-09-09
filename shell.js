@@ -7,7 +7,7 @@ if (shell.exec("npm run build").code !== 0) {//执行npm run build 命令
   shell.exit(1);
 }
 
-// //由于我的用另外一个仓库存放dist目录，所以这里要将文件增量复制到目标目录。并切换到对应目录。
+//由于我的用另外一个仓库存放dist目录，所以这里要将文件增量复制到目标目录。并切换到对应目录。
 shell.cp("-r", "./dist/*", "../vue-zhouzhou");
 shell.cd("../vue-zhouzhou");
 shell.exec("git add .");

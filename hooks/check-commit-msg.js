@@ -5,7 +5,7 @@ const path = require("path");
 const msgPath = process.argv.slice(2)[0] ?
   path.join(__dirname, "..", process.argv.slice(2)[0]):
   path.join(__dirname, "..", ".git", "COMMIT_EDITMSG");
-console.log(msgPath + "-------");
+// console.log(msgPath + "-------");
 let msgContent = fs.readFileSync(msgPath, "utf-8").toString();
 // 移除注视
 msgContent = msgContent.replace(/^#.+/mg, "");
@@ -30,12 +30,12 @@ const syntaxRe = /^(\w+)(\(.+\))?: ?(\S.*)/;
 
 
 const match = msgContent.match(syntaxRe);
-console.log(match+"-------");
+// console.log(match+"-------");
 
 let pass = true;
 if (match) {
   const [_, type, scope, subject] = match;
-  console.oog(type+"---"+scope+"---"+subject);
+  // console.log(type+"---"+scope+"---"+subject);
   if (!TYPES.includes(type)) {
     pass = false;
     console.log("butongg");

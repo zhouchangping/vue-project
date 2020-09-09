@@ -1,5 +1,5 @@
 <template>
-  <div class="pageContainer" ref="pageContainer">
+  <scroll>
     <div class="page-better">
       <div class="page-main" v-for="item in dataArtical" v-on:click="goToDetail(item.url)" :key="item.id">
         <!-- <div>{{tests}}</div>
@@ -25,13 +25,14 @@
     </div>
     <loadings :isShow="isShowLoading"></loadings>
     <refresh-fs v-bind:isLoading="isLoading"></refresh-fs>
-  </div>
+  </scroll>
 </template>
 <script>
 // 在单独构建的版本中辅助函数为 Vuex.mapState
 import { mapGetters, mapState } from "vuex";
 import { mapMutations } from "vuex";
 import refresh from "../common/refresh.vue";
+import scroll from "../common/scroll.vue";
 import BScroll from "better-scroll";
 import loadings from "@/components/common/loading.vue";
 export default {
@@ -186,14 +187,15 @@ export default {
     setTimeout(()=> {
       that.isShowLoading = false;
     }, 2000);
-    let wrapper = that.$refs.pageContainer;
-    that.scroll = new BScroll(wrapper, {
-      scrollY: true,
-      click: true,
-      preventDefaultException: {
-        tagName: /^(INPUT|TEXTAREA|BUTTON|SELECT|CODE|PRE)$/
-      }
-    });
+    // let wrapper = that.$refs.pageContainer;
+    // that.scroll = new BScroll(wrapper, {
+    //   scrollY: true,
+    //   click: true,
+    //   resizePolling: 60,
+    //   preventDefaultException: {
+    //     tagName: /^(INPUT|TEXTAREA|BUTTON|SELECT|CODE|PRE)$/
+    //   }
+    // });
 
     // localforage
     // that.$setItem("name", 4, function() {
@@ -201,6 +203,7 @@ export default {
     // });
 
     // window.onresize = function() {
+    //   console.log(12313);
     //   if (!that.timer) {
     //     that.scroll.refresh();
     //     setTimeout(() => {
@@ -239,6 +242,7 @@ export default {
   },
   components: {
     "refresh-fs": refresh,
+    "scroll": scroll,
     loadings
   }
 };

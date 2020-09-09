@@ -11,7 +11,7 @@
     <!--  <scroll-top v-show="isGoShow" @goToTop="mainSetGo" @goToTopMove="mainSetGoMove"></scroll-top> -->
     <footer-page v-bind:articalItems="articalItems">
     </footer-page>
-    <res-info v-on:child-event="showMessageFromChild" v-show="isChildShow"></res-info>
+    <!-- <res-info v-on:child-event="showMessageFromChild" v-show="isChildShow"></res-info> -->
   </div>
 </template>
 
@@ -19,7 +19,7 @@
 // import scrollTop from './components/common/scrollTop.vue';
 import topNav from "./components/common/topNav.vue";
 import footer from "./components/common/footer.vue";
-import resInfo from "./components/common/resInfo.vue";
+// import resInfo from "./components/common/resInfo.vue";
 // import $request from "./api/request.js";
 import waterMask from "./components/common/waterMask.vue"; // 水印
 
@@ -158,7 +158,7 @@ export default {
     "top-nav": topNav,
     // 'scroll-top': scrollTop,
     "footer-page": footer,
-    "res-info": resInfo,
+    // "res-info": resInfo,
     waterMask
   }
 };

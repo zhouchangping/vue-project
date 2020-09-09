@@ -2,7 +2,7 @@
  * Module dependencies
  */
 
-var debug = require('debug')('jsonp');
+var debug = require("debug")("jsonp");
 
 /**
  * Module exports.
@@ -37,22 +37,22 @@ function noop(){}
  */
 
 function jsonp(url, opts, fn){
-  if ('function' == typeof opts) {
+  if ("function" == typeof opts) {
     fn = opts;
     opts = {};
   }
   if (!opts) opts = {};
 
-  var prefix = opts.prefix || '__jp';
+  var prefix = opts.prefix || "__jp";
 
   // use the callback name that was passed if one was provided.
   // otherwise generate a unique name by incrementing our counter.
   var id = opts.name || (prefix + (count++));
 
-  var param = opts.param || 'callback';
+  var param = opts.param || "callback";
   var timeout = null != opts.timeout ? opts.timeout : 60000;
   var enc = encodeURIComponent;
-  var target = document.getElementsByTagName('script')[0] || document.head;
+  var target = document.getElementsByTagName("script")[0] || document.head;
   var script;
   var timer;
 
@@ -60,7 +60,7 @@ function jsonp(url, opts, fn){
   if (timeout) {
     timer = setTimeout(function(){
       cleanup();
-      if (fn) fn(new Error('Timeout'));
+      if (fn) fn(new Error("Timeout"));
     }, timeout);
   }
 
@@ -77,19 +77,19 @@ function jsonp(url, opts, fn){
   }
 
   window[id] = function(data){
-    debug('jsonp got', data);
+    debug("jsonp got", data);
     cleanup();
     if (fn) fn(null, data);
   };
 
   // add qs component
-  url += (~url.indexOf('?') ? '&' : '?') + param + '=' + enc(id);
-  url = url.replace('?&', '?');
+  url += (~url.indexOf("?") ? "&" : "?") + param + "=" + enc(id);
+  url = url.replace("?&", "?");
 
-  debug('jsonp req "%s"', url);
+  debug("jsonp req \"%s\"", url);
 
   // create script
-  script = document.createElement('script');
+  script = document.createElement("script");
   script.src = url;
   target.parentNode.insertBefore(script, target);
 
