@@ -21,7 +21,7 @@ npm run build --report
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 # vue-project
 
-## commit-message
+## commit-message： 如：git commit -m "feat:message"
 + feat：新功能（feature）
 + fix：修补bug
 + docs：文档（documentation）

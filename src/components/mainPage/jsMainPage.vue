@@ -33,7 +33,6 @@ import { mapGetters, mapState } from "vuex";
 import { mapMutations } from "vuex";
 import refresh from "../common/refresh.vue";
 import scroll from "../common/scroll.vue";
-import BScroll from "better-scroll";
 import loadings from "@/components/common/loading.vue";
 export default {
   data() {
@@ -145,6 +144,22 @@ export default {
           pageInfo: "scrollTop",
           pageTime: "2020-06-30",
           url: "scrollTop",
+        },
+        {
+          pageTitle: "canvas",
+          img: require("../../common/images/avater.jpg"),
+          userName: "寻找许仙",
+          pageInfo: "canvas",
+          pageTime: "2020-06-30",
+          url: "canvas",
+        },
+        {
+          pageTitle: "betterScroll",
+          img: require("../../common/images/avater.jpg"),
+          userName: "寻找许仙",
+          pageInfo: "betterScroll",
+          pageTime: "2020-06-30",
+          url: "betterScroll",
         }
       ]
     };

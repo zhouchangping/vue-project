@@ -103,9 +103,9 @@ Vue.use(Skeleton);
 Vue.use(Lazyload);
 
 // 注册时可以配置额外的选项
-Vue.use(Lazyload, {
-  lazyComponent: true
-});
+// Vue.use(Lazyload, {
+//   lazyComponent: true
+// });
 
 // 或者添加VueLazyload 选项
 Vue.use(VueLazyload, {
@@ -214,4 +214,6 @@ const errorHandler = (error, vm)=>{
 
 Vue.config.errorHandler = errorHandler;
 Vue.prototype.$throw = (error)=> errorHandler(error,this);
+
+
 

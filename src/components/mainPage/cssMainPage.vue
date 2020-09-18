@@ -84,6 +84,15 @@ export default {
             "bem链接地址：https://www.leemunroe.com/css-sass-scss-bem-less/",
           pageTime: "2019-03-26",
           url: "bem"
+        },
+        {
+          pageTitle: "css 帧动画",
+          img: require("../../common/images/avater.jpg"),
+          userName: "寻找许仙",
+          pageInfo:
+            "bem链接地址：https://www.leemunroe.com/css-sass-scss-bem-less/",
+          pageTime: "2020-09-11",
+          url: "cssanimation"
         }
       ]
     };

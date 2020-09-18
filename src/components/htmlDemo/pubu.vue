@@ -80,8 +80,7 @@ export default {
       var lastPinH =
         oBoxs[oBoxs.length - 1].offsetTop +
         Math.floor(oBoxs[oBoxs.length - 1].offsetHeight / 2); //创建【触发添加块框函数waterfall()】的高度：最后一个块框的距离网页顶部+自身高的一半(实现未滚到底就开始加载)
-      var scrollTop =
-        document.body.scrollTop || document.documentElement.scrollTop;
+      var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
       var heightWindow =
         document.body.clientHeight || document.documentElement.clientHeight;
       return lastPinH < scrollTop + heightWindow ? true : false;

@@ -1,5 +1,5 @@
  <template>
-  <div class="el-go-back " @click="smoothScroll">
+  <div class="el-go-back " v-show="isShowTop" @click="smoothScroll">
     <i class="iconfont icon-huidaodingbu"></i>
   </div>
 </template>
@@ -10,42 +10,35 @@ export default {
     toBottom: {
       type: Number,
       default: 0
+    },
+    isShow: {
+      type: Boolean,
+      default: false,
     }
+  },
+  data() {
+    return {
+      isShowTop: this.isShow // data中isshow和props不能同时使用到v-show
+    };
   },
   methods: {
     smoothScroll() {
       let self = this;
-      self.$emit("goToTopMove", true);
-      // let currentScrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-      //  //let currentScrollTop = document.body.scrollTop  ||  document.documentElement.scrollTop;
-      //  console.log(currentScrollTop)
-      //  if (currentScrollTop > 20) {
-      //      document.body.scrollTop = currentScrollTop - (currentScrollTop/5);
-      //      // window.scrollTo(0, currentScrollTop - (currentScrollTop/5));
-      //      window.requestAnimationFrame(self.smoothScroll);
-      //  } else {
-      //      document.body.scrollTop = 0
-      //      //window.scrollTo(0, 0);
-      //  }
+      self.$emit("goTopMove", true);
     },
     mainScrollToTop() {
       let self = this;
-      let scrollTop =
-        document.documentElement.scrollTop || document.body.scrollTop;
+      let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
       if (scrollTop > 100) {
-        self.$emit("goToTop", true);
+        self.isShowTop = true;
       } else {
-        self.$emit("goToTop", false);
+        self.isShowTop = false;
       }
     }
   },
   mounted() {
     let self = this;
-    // self.$nextTick( () => {
-    //   window.addEventListener('scroll', self.mainScrollToTop, true); // 必须在内部main不能定位 position: absolute,
-    // })
-
-    // window.addEventListener('scroll', self.mainScrollToTop, true); // 必须在内部main不能定位 position: absolute,
+    window.addEventListener("scroll", self.mainScrollToTop, true); // 必须在内部main不能定位 如：position: absolute,
   }
 };
 </script>

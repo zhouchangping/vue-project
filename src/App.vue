@@ -8,7 +8,7 @@
     </keep-alive>
     <water-mask v-bind:inputText="inputText">
     </water-mask>
-    <!--  <scroll-top v-show="isGoShow" @goToTop="mainSetGo" @goToTopMove="mainSetGoMove"></scroll-top> -->
+     <!-- <scroll-top v-show="isGoShow" @goToTop="mainSetGo" @goToTopMove="mainSetGoMove"></scroll-top> -->
     <footer-page v-bind:articalItems="articalItems">
     </footer-page>
     <!-- <res-info v-on:child-event="showMessageFromChild" v-show="isChildShow"></res-info> -->
@@ -23,7 +23,6 @@ import footer from "./components/common/footer.vue";
 // import $request from "./api/request.js";
 import waterMask from "./components/common/waterMask.vue"; // 水印
 
-import axioss from "axios";
 let options = {
   text: {
     userName: "周昌平1",

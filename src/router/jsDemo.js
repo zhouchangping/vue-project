@@ -11,6 +11,8 @@ const template = () => import("@/components/jsDemo/template.vue");
 const webSafety = () => import("@/components/jsDemo/webSafety.vue");
 const h5Lock = () => import("@/components/jsDemo/h5Lock.vue");
 const scrollTop = () => import("@/components/jsDemo/scrollTop.vue");
+const canvas = () => import("@/components/jsDemo/canvas.vue");
+const betterScroll = () => import("@/components/jsDemo/betterScroll.vue");
 
 export default [
   /* js */
@@ -65,4 +67,13 @@ export default [
     path: "/scrollTop",
     name: "scrollTop",
     component: scrollTop
+  }, {
+    path: "/canvas",
+    name: "canvas",
+    component: canvas
+  },
+  {
+    path: "/betterScroll",
+    name: "betterScroll",
+    component: betterScroll
   }];

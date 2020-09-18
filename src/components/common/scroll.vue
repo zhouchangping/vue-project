@@ -3,77 +3,207 @@
       <slot></slot>
     </div>
 </template>
-<script>
-import Bscroll from "better-scroll" ;
-export default{
-  name:"scroll",
-  props:{
-    proType:{
-      type:Number,
-      default:1
+<script type="text/ecmascript-6">
+import BScroll from "better-scroll";
+export default {
+  props: {
+    /**
+       * 1 滚动的时候会派发scroll事件，会截流。
+       * 2 滚动的时候实时派发scroll事件，不会截流。
+       * 3 除了实时派发scroll事件，在swipe的情况下仍然能实时派发scroll事件
+       */
+    probeType: {
+      type: Number,
+      default: 2
     },
-    click:{
-      type:Boolean,
-      default:true
+    /**
+       * 点击列表是否派发click事件
+       */
+    click: {
+      type: Boolean,
+      default: true
     },
-    datas:{
-      type:Array,
-      default:null
+    /**
+       * 是否开启横向滚动
+       */
+    scrollX: {
+      type: Boolean,
+      default: false
     },
-    listenScroll:{
-      type:Boolean,
-      default:false
+    /**
+       * 是否派发滚动事件
+       */
+    listenScroll: {
+      type: Boolean,
+      default: false
+    },
+    /**
+       * 列表的数据
+       */
+    data: {
+      type: Array,
+      default: null
+    },
+    /**
+       * 是否派发滚动到底部的事件，用于上拉加载
+       */
+    pullup: {
+      type: Boolean,
+      default: false
+    },
+    /**
+       * 是否派发顶部下拉的事件，用于下拉刷新
+       */
+    pulldown: {
+      type: Boolean,
+      default: false
+    },
+    /**
+       * 是否派发列表滚动开始的事件
+       */
+    beforeScroll: {
+      type: Boolean,
+      default: false
+    },
+    /**
+       * 当数据更新后，刷新scroll的延时。
+       */
+    refreshDelay: {
+      type: Number,
+      default: 20
     }
   },
-  mounted(){
-    var that=this;
-    setTimeout(function(){
-      that._initScroll();
-    },100);
+  data() {
+    return {
+      length: 0
+    };
   },
-  methods:{
-    _initScroll(){
-      var that=this;
-      if(!this.$refs.wrapper){
+  computed: {
+    maxScrollY: function () {
+      return this.length * 100;
+    }
+  },
+  mounted() {
+    let that = this;
+    // 保证在DOM渲染完毕后初始化better-scroll
+    setTimeout(() => {
+      that._initScroll();
+    }, 20);
+    window.onresize = function () {
+      console.log("refresh");
+      that.$nextTick(() => {
+        that.refresh();
+      });
+    };
+  },
+  methods: {
+    _initScroll() {
+      if (!this.$refs.wrapper) {
         return;
       }
-      this.scroll=new Bscroll(this.$refs.wrapper,{
-        probeType:this.proType,
-        click:this.click,
+      // better-scroll的初始化
+      this.scroll = new BScroll(this.$refs.wrapper, {
+        probeType: this.probeType,
+        click: this.click,
+        // listenScroll : true,
         scrollY: true,
-        resizePolling: 60,
-        preventDefaultException: {
-          tagName: /^(INPUT|TEXTAREA|BUTTON|SELECT|CODE|PRE)$/
+        pullUpLoad: true,
+        pullDownRefresh: true,
+        pullUpLoad: {
+          threshold: 0
         }
       });
-      if(this.listenScroll){
-        this.scroll.on("scroll",(pos)=>{
-          that.$emit("scroll",pos);
+      // console.log(this.listenScroll);
+      // console.log(this.pulldown);
+      // console.log(this.scroll);
+      // 是否派发滚动事件
+      if (this.listenScroll) {
+        console.log("listenScroll");
+        let me = this;
+        this.scroll.on("scroll", (pos) => {
+          me.$emit("scroll", pos);
+        });
+      }
+
+      // 是否派发滚动到底部事件，用于上拉加载
+      // if (this.pullup) {
+      //   this.scroll.on("scrollEnd", () => {
+      //     // 滚动到底部
+      //     if (this.scroll.y <= (this.scroll.maxScrollY + 50)) {
+      //       this.$emit("scrollToEnd");
+      //     }
+      //   });
+      // }
+
+      // this.scroll.on("pullingDown", () => {
+      //   console.log("pullingDown");
+      //   this.$emit("pullDown");
+      //   this.$nextTick(() => {
+      //     this.scroll.refresh(); // DOM 结构发生变化后，重新初始化BScroll
+      //   });
+      //   this.scroll.finishPullDown(); // 下拉刷新动作完成后调用此方法告诉BScroll完成一次下拉动作
+      // });
+
+      this.scroll.on("pullingUp", () => {
+        this.scroll.maxScrollY = this.maxScrollY;
+        // console.log(this.maxScrollY);
+        this.$emit("pullUp");
+        this.$nextTick(() => {
+          this.scroll.refresh(); // DOM 结构发生变化后，重新初始化BScroll
+        });
+        this.scroll.finishPullUp(); // 上拉加载动作完成后调用此方法告诉BScroll完成一次上拉动作
+      });
+
+
+      // 是否派发顶部下拉事件，用于下拉刷新
+      // if (this.pulldown) {
+      //   console.log("pulldown");
+      //   this.scroll.on("touchend", (pos) => {
+      //     console.log(pos);
+      //     console.log("pulldown");
+      //     // 下拉动作
+      //     if (pos.y > 50) {
+      //       this.$emit("pulldown");
+      //     }
+      //   });
+      // }
+
+      // 是否派发列表滚动开始的事件
+      if (this.beforeScroll) {
+        this.scroll.on("beforeScrollStart", () => {
+          this.$emit("beforeScroll");
         });
       }
     },
-    enable(){
-      this.scroll && this.scroll.enable();
-    },
-    disable(){
+    disable() {
+      // 代理better-scroll的disable方法
       this.scroll && this.scroll.disable();
     },
-    refresh(){
+    enable() {
+      // 代理better-scroll的enable方法
+      this.scroll && this.scroll.enable();
+    },
+    refresh() {
+      // 代理better-scroll的refresh方法
       this.scroll && this.scroll.refresh();
     },
-    scrollTo(){
-      this.scroll && this.scroll.scrollTo.apply(this.scroll,arguments);
+    scrollTo() {
+      // 代理better-scroll的scrollTo方法
+      this.scroll && this.scroll.scrollTo.apply(this.scroll, arguments);
     },
-    scrollToElement(){
-      this.scroll && this.scroll.scrollToElement.apply(this.scroll,arguments);
-    },
+    scrollToElement() {
+      // 代理better-scroll的scrollToElement方法
+      this.scroll && this.scroll.scrollToElement.apply(this.scroll, arguments);
+    }
   },
-  wacth:{
-    datas(){
-      var that=this;
-      setTimeout(function(){
-        that.scroll && this.refresh();
-      },20);
+  watch: {
+    // 监听数据的变化，延时refreshDelay时间后调用refresh方法重新计算，保证滚动效果正常
+    data() {
+      this.length = this.data.length;
+      console.log(this.length);
+      setTimeout(() => {
+        this.refresh();
+      }, this.refreshDelay);
     }
   }
 };
@@ -81,3 +211,5 @@ export default{
 
 <style scoped lang="less">
 </style>
+
+

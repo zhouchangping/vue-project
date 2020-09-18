@@ -71,6 +71,15 @@ export default {
           pageTime: "2020-01-12",
           url: "vantPage",
           id: 4
+        },
+        {
+          pageTitle: "imageLazy",
+          img: require("../../common/images/avater.jpg"),
+          userName: "寻找许仙",
+          pageInfo: "imageLazy",
+          pageTime: "2020-09-17",
+          url: "imageLazy",
+          id: 5
         }
       ]
     };
