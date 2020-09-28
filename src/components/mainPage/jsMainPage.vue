@@ -160,6 +160,14 @@ export default {
           pageInfo: "betterScroll",
           pageTime: "2020-06-30",
           url: "betterScroll",
+        },
+        {
+          pageTitle: "wxTool",
+          img: require("../../common/images/avater.jpg"),
+          userName: "寻找许仙",
+          pageInfo: "wxTool",
+          pageTime: "2020-09-22",
+          url: "wxTool",
         }
       ]
     };

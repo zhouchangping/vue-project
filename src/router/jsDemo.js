@@ -13,6 +13,7 @@ const h5Lock = () => import("@/components/jsDemo/h5Lock.vue");
 const scrollTop = () => import("@/components/jsDemo/scrollTop.vue");
 const canvas = () => import("@/components/jsDemo/canvas.vue");
 const betterScroll = () => import("@/components/jsDemo/betterScroll.vue");
+const wxTool = () => import("@/components/jsDemo/wxTool.vue");
 
 export default [
   /* js */
@@ -75,5 +76,9 @@ export default [
   {
     path: "/betterScroll",
     name: "betterScroll",
-    component: betterScroll
+  },
+  {
+    path: "/wxTool",
+    name: "wxTool",
+    component: wxTool
   }];
