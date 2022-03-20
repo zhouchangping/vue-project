@@ -1,5 +1,5 @@
 <template>
-  <div class="pageContainer">
+  <scroll>
     <div class="page-better">
       <div class="pageGif">
         <ul id="ulArr">
@@ -33,7 +33,7 @@
             <h2 class="container_title">6个属性设置在项目上</h2>
             <ul class="container_ul">
               <li>order,属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。</li>
-              <li>flex-wrap, nowrap | wrap | wrap-reverse;</li>
+              <li>flex-shrink属性,属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小, </li>
               <li>flex-grow,属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大</li>
               <li>flex-basis,属性定义了在分配多余空间之前，项目占据的主轴空间（main size）。</li>
               <li>flex 属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。</li>
@@ -54,13 +54,16 @@
         </div>
       </div>
     </div>
-  </div>
+    <top-item :text="title"></top-item>
+  </scroll>
 </template>
 <script>
-import BScroll from "better-scroll";
+import scroll from "../common/scroll.vue";
+import topItem from "../common/topItem.vue";
 export default {
   data() {
     return {
+      title: "flex布局",
       imageItems: {
         _src: require("../../common/images/cssDemo/bg.gif"),
         src: require("../../common/images/cssDemo/bgThree.gif")
@@ -96,38 +99,16 @@ export default {
   },
   created() {},
   mounted() {
-    var that = this;
-    let wrapper = document.querySelector(".pageContainer");
-    that.scroll = new BScroll(wrapper, {
-      scrollY: true,
-      scrollX: false,
-      probeType: 2,
-      click: true, // 点击派发事件
-      preventDefaultException: {
-        tagName: /^(INPUT|TEXTAREA|BUTTON|SELECT|CODE|PRE)$/
-      }
-    });
-    that.scroll.on("scroll", () => {
-      if (!that.isShowImage) {
-        //console.log(pos);
-        that.isShowImage = true;
-        that.showImage();
-      }
-    });
-    // window.addEventListener(
-    //   // 滚动替换图片
-    //   "scroll",
-    //   function() {
-    //     that.showImage();
-    //   },
-    //   true
-    // );
+
   },
   activated() {
     // keep-alive 组件激活时调用。
     this.$store.commit("SET_TITLES", "几种常用的布局方式"); // 该方法比较靠谱
   },
-  components: {}
+  components: {
+    scroll,
+    topItem
+  }
 };
 </script>
 <style scoped>
@@ -157,7 +138,7 @@ align-self 属性允许单个项目有与其他项目不一样的对齐方式，
   padding: 20px 0;
 } */
 
-.pageContainer #ulArr {
+.page-container #ulArr {
   display: flex;
   justify-content: center;
   /*  align-items: center;*/

@@ -1,7 +1,6 @@
 /* cssnext使用测试 */
 :root {
   --mianColor: red;
-
   --bodyCommon: {
     background-color: #fff;
     position: relative;
@@ -11,14 +10,13 @@
     height: 100%;
     /*针对ie6弹框背景出来了高度不够加的，但是 会影响window.scroll overflow-x: hidden;*/
     /*子元素根据100%；只根据100%部分*/
-    font-family: "PingFang SC", "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
-  }
-
-  ;
-}
-
-#appVue {
-  position: relative;
+    /* font-family: "PingFang SC", "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif; */
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 16px;
+    color: #2c3e50
+  };
 }
 
 * {
@@ -50,16 +48,8 @@ html {
   font-size: 14px;
 }
 
-/*body {
+body {
   @apply --bodyCommon;
-}*/
-
-a,
-a:active,
-a:link,
-a:hover,
-a:visited {
-  text-decoration: none;
 }
 
 p {
@@ -94,6 +84,15 @@ a:visited {
   text-decoration: underline;
 }
 
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+#appVue {
+  position: relative;
+}
+
 #apps {
   position: relative;
   padding-top: 1.6rem;
@@ -107,13 +106,18 @@ a:visited {
 }
 
 input {
-  caret-color: #32af50;
+  /* caret-color: #32af50; */
+  caret-color: #ea6f5a;
   outline: none;
   -webkit-appearance: none;
   appearance: none;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  border-radius: 0;
+  border-radius: 15px;
+  height: 30px;
   font-size: 16px;
+  text-indent: 10px;
+  border:none;
+  border: 1px solid #ea6f5a;
   -webkit-touch-callout: none;
 }
 
@@ -122,12 +126,21 @@ input[disabled] {
   background: #fff;
 }
 
-@supports (caret-color: #32af50) {
+button {
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  border: none;
+  /* height: 30px; */
+  /* border-radius: 15px; */
+}
 
+@supports (caret-color: #ea6f5a) {
   input,
   textarea,
   [contenteditable] {
-    caret-color: #32af50;
+    caret-color: #ea6f5a;
     /* 光标颜色 */
   }
 }
@@ -149,16 +162,6 @@ input:-moz-placeholder {
 input:-ms-input-placeholder {
   /* Internet Explorer 10-11 */
   color: #999;
-}
-
-/*引入vueLi.styl*/
-.clearfix {
-  visibility: hidden;
-  display: block;
-  font-size: 0;
-  content: " ";
-  clear: both;
-  height: 0;
 }
 
 li pre {
@@ -188,9 +191,8 @@ em {
   font-weight: 600;
 }
 
-.pageContainer {
+.page-container {
   position: relative;
-  /* top: 1.6rem; */
   top: 0;
   left: 0;
   right: 0;
@@ -199,11 +201,9 @@ em {
   height: 100%;
   overflow: hidden;
   box-sizing: border-box;
-  /* padding-bottom: 2rem; */
-  /* padding-top: 1.6rem; */
 }
 
-.pageContainer .page-better {
+.page-container .page-better {
   position: absolute;
   top: 0;
   left: 0;
@@ -212,8 +212,29 @@ em {
   padding-top: 1.6rem;
 }
 
+.page-base {
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.page-base .page-contain {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  background: #fff;
+  padding-top: 1.6rem;
+}
+
 .page-main {
   padding: 1rem 0.5rem 2rem 0.5rem;
+  box-shadow: 0 6px 10px #ebedf0;
 }
 
 .page-main .page-titile {
@@ -277,24 +298,6 @@ em {
   text-indent: 0;
 }
 
-/* .page-footer {
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 100vw;
-  box-sizing: border-box;
-  height: 100vh;
-  background-color: #f3f3f3;
-  color: #000;
-  text-align: center;
-  line-height: 1.6rem;
-  z-index: 3;
-  /* box-shadow: 0 0.053333rem 0.106667rem rgba(0, 0, 0, 0.1); */
-} */
-
-
 /* 动画参数 */
 .fadeMask-enter-active,
 .fadeMask-leave-active {
@@ -306,7 +309,7 @@ em {
 .fadeMask-leave-to
 
 /* .fade-leave-active below version 2.1.8 */
-  {
+{
   transform: translateY(0px);
   opacity: 0;
 }
@@ -323,7 +326,6 @@ em {
 }
 
 @-webkit-keyframes myfirst
-
 /* Safari 与 Chrome */
   {
   from {
@@ -358,3 +360,4 @@ blockquote p {
   padding: 10px;
   text-indent: 0;
 }
+

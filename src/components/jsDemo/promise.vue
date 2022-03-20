@@ -258,9 +258,9 @@ module.exports = Promise;
 <script>
 //import { mapMutations } from "vuex";
 import BScroll from "better-scroll";
-import Promises from "../../common/js/promise.js";
+import Promises from "@/utils/promise.js";
 export default {
-  data() {
+  data () {
     return {
       isActive: false,
       vueImage: require("../../common/images/js/vue.jpg"),
@@ -275,16 +275,16 @@ export default {
     };
   },
   methods: {
-    mainTransition() {
+    mainTransition () {
       this.isActive = !this.isActive;
       this.isUl = !this.isUl;
     }
   },
-  activated() {
+  activated () {
     // keep-alive 组件激活时调用。
     this.$store.commit("SET_TITLES", "Vue.js 运行机制全局概览"); // 该方法比较靠谱
   },
-  mounted() {
+  mounted () {
     let wrapper = this.$refs.pageContainer;
     this.scroll = new BScroll(wrapper, {
       scrollY: true,
@@ -294,9 +294,9 @@ export default {
       }
     });
 
-    let promise = new Promises(function(resolve, reject) {
+    let promise = new Promises(function (resolve, reject) {
       console.log("1"); // 1
-      setTimeout(function() {
+      setTimeout(function () {
         resolve(4444); // 更改pending状态为resolved ,
       }, 1000);
       //console.log(3);
@@ -309,10 +309,10 @@ export default {
       // return function () {
       //   return 123;
       // };
-      return new Promises(function(resolve,reject) {
+      return new Promises(function (resolve, reject) {
         resolve(2);
       });
-    },(err) => {
+    }, (err) => {
       console.log(err);
     });
     //console.log("2"); // 1,3,2,success1

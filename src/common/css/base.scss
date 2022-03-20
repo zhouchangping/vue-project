@@ -1,0 +1,38 @@
+// @import "path/filename.scss";
+.one-px {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  content: "";
+  height: 0.026667rem;
+  width: 100%;
+  background-color: #eaeaea;
+  -webkit-transform: scaleY(0.5);
+  transform: scaleY(0.5);
+  -webkit-transform-origin: center bottom;
+  transform-origin: center bottom;
+}
+
+@mixin one-px($value: 0) {
+  position: absolute;
+  left: $value;
+  bottom: 0;
+  content: "";
+  height: 0.026667rem;
+  width: 100%;
+  background-color: #eaeaea;
+  -webkit-transform: scaleY(0.5);
+  transform: scaleY(0.5);
+  -webkit-transform-origin: center bottom;
+  transform-origin: center bottom;
+}
+
+.clear-fix {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+

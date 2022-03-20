@@ -1,34 +1,46 @@
 <template>
-  <div class="pageContainer" ref="pageContainer">
+  <scroll>
     <div class="page-better">
-      <div class="page-main" v-for="item in dataArtical" v-on:click="goToDetail(item.url)" :key="item.id">
-        <h1 class="page-titile">{{item.pageTitle}}</h1>
+      <div
+        class="page-main"
+        v-for="item in dataArtical"
+        v-on:click="goToDetail(item.url)"
+        :key="item.id"
+      >
+        <h1 class="page-titile">{{ item.pageTitle }}</h1>
         <div class="page-user-info">
           <p class="page-p">
-            <img :src="avatar" class="page-user-img">
-            <span class="page-username">{{item.userName}}</span>
+            <img :src="avatar" class="page-user-img" />
+            <span class="page-username">{{ item.userName }}</span>
           </p>
           <p class="page-p">
-            <span class="page-user-time">{{item.pageTime}}</span>
+            <span class="page-user-time">{{ item.pageTime }}</span>
           </p>
         </div>
         <div class="page-artical-msg">
-          <P>{{item.pageInfo}}</P>
+          <P>{{ item.pageInfo }}</P>
         </div>
       </div>
     </div>
-    <loadings :isShow="isShowLoading"></loadings>
-    <!-- <refresh-fs v-bind:isLoading="isLoading"></refresh-fs> -->
-  </div>
+    <top-nav v-bind:articalItems="articalItems" :text="title"></top-nav>
+    <!-- <loadings :isShow="isShowLoading"></loadings> -->
+  </scroll>
 </template>
 <script>
-// import { mapMutations } from "vuex";
-// import refresh from "../common/refresh.vue";
-import BScroll from "better-scroll";
-import loadings from "@/components/common/loading.vue";
+import topNav from "@/components/common/topNav.vue";
+import scroll from "../common/scroll.vue";
+// import loadings from "@/components/common/loading.vue";
 export default {
-  data() {
+  data () {
     return {
+      title: "html",
+      articalItems: [
+        { title: "javascript", url: "/jsMainPage", id: 1 },
+        { title: "html", url: "/htmlMainPage", id: 2 },
+        { title: "css", url: "/cssMainPage", id: 3 },
+        { title: "面试集合", url: "/faceMainPage", id: 4 },
+        { title: "node", url: "/nodeMainPage", id: 5 },
+      ],
       isShowLoading: true,
       // isLoading: true,
       scroll: null,
@@ -80,43 +92,58 @@ export default {
           pageTime: "2020-09-17",
           url: "imageLazy",
           id: 5
+        },
+        {
+          pageTitle: "html5新功能",
+          img: require("../../common/images/avater.jpg"),
+          userName: "寻找许仙",
+          pageInfo: "html5新功能",
+          pageTime: "2020-09-17",
+          url: "html5",
+          id: 6
+        },
+        {
+          pageTitle: "测试键盘弹出影响布局",
+          img: require("../../common/images/avater.jpg"),
+          userName: "寻找许仙",
+          pageInfo: "测试键盘弹出影响布局",
+          pageTime: "2021-03-31",
+          url: "testCus",
+          id: 7
+        },
+        {
+          pageTitle: "圣杯布局",
+          img: require("../../common/images/avater.jpg"),
+          userName: "寻找许仙",
+          pageInfo: "圣杯布局是middle+padding，双飞翼采用子元素+margin，最主要的还是负边距的使用",
+          pageTime: "2021-03-31",
+          url: "leftRight",
+          id: 8
         }
       ]
     };
   },
   methods: {
-    mainTransition() {
+    mainTransition () {
       this.isActive = !this.isActive;
       this.isUl = !this.isUl;
     },
-    goToDetail(val) {
+    goToDetail (val) {
       this.$router.push({ name: val });
     }
   },
-  activated() {
+  activated () {
     // keep-alive 组件激活时调用。
-    this.$store.commit("SET_TITLES", "html集合"); // 该方法比较靠谱
-    this.$store.commit("SET_ISCHILDSHOWS", false); // 该方法比较靠谱
+    // this.$store.commit("SET_TITLES", "html集合"); // 该方法比较靠谱
+    // this.$store.commit("SET_ISCHILDSHOWS", false); // 该方法比较靠谱
     this.scroll.refresh();
   },
-  mounted() {
-    var that = this;
-    setTimeout(()=> {
-      that.isShowLoading = false;
-    }, 2000);
-    // that.isShowLoading = false;
-    // that.isLoading = false;
-    // that.isShowContainer = true;
-    // let wrapper = document.querySelector('.pageContainer');
-    let wrapper = this.$refs.pageContainer;
-    that.scroll = new BScroll(wrapper, {
-      scrollY: true,
-      click: true
-    });
+  mounted () {
   },
   components: {
-    // "refresh-fs": refresh,
-    loadings
+    "top-nav": topNav,
+    scroll,
+    // loadings
   }
 };
 </script>

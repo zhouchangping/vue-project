@@ -44,6 +44,7 @@ Move.prototype.init = function () {
     this.tarL = this.tarEle.offsetLeft;
     this.tarW = this.tarEle.offsetWidth || this.tarEle.clientWidth;
     this.tarH = this.tarEle.offsetHeight || this.tarEle.clientHeight;
+    console.log(this.tarT); // 0
   } else {
     this.tarT = this.opts.posArr[0];
     this.tarL = this.opts.posArr[1];
@@ -132,15 +133,28 @@ Move.prototype.checkOver = function(moveX, moveY) {
   } else if(h > aH) {
     this.moveY = aH - this.dragT - this.dragH;
   }
+  // console.log(this.moveX);
 };
 
 Move.prototype.checkPos = function(type, e) {
   //判断拖动元素是否到达目标位置，判断方式更具情况而定，此处判断的依据是：touch事件位置判断，即结束时touch的位置是否在目标区域位置
-  if(this.nowX > this.tarL && this.nowX < this.tarL + this.tarW &&  this.nowY > this.tarT && this.nowY < this.tarT + this.tarH) {
+  // console.log(this.nowX > this.tarL);
+  // console.log(this.nowX < this.tarL + this.tarW);
+
+
+  // console.log(this.nowY > this.tarT);
+  // console.log(this.nowY < this.tarH);
+  // console.log(this.nowY);
+  // console.log(this.tarT);
+  // console.log(this.tarH);
+  // console.log(this.nowY < this.tarH + this.tarT);
+  if(this.nowX > this.tarL && this.nowX < this.tarL + this.tarW &&  this.nowY > this.tarT && this.nowY < this.tarH + this.tarT) {
+    console.log(3434);
     //进入目标区域
     if(type === "move" && !!this.opts.tarEle) {
       //在移动过程中，进入目标区域
       this.opts.onMoveIn(this.tarEle);
+      // console.log(3434);
     } else {
       //在拖动结束时进入目标区域
       this.opts.onEnd(e);

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // let obarr = []
+    // const arrayProto = Array.prototype
+    // const arrayMethods = Object.create(arrayProto)// 来copy一份数组的原型方法,防止污染原生数组方法
+    // ['push', 'pop', 'shift', 'unshift', 'splice', 'sort', 'reverse']
+    // Object.defineProperty(arrayMethods, 'push', {
+    //   value: function mutator() {
+    //     //缓存原生方法，之后调用
+    //     const original = arrayProto['push']
+    //     let args = Array.from(arguments)
+    //     console.log(this)
+    //     original.apply(this, args)
+    //     console.log(obarr)
+    //   }
+    // })
+    // obarr.__proto__ = arrayMethods;
+    // console.log(obarr.push)
+    // obarr.push(123)
+
+    // function replacer(match, p1, p2, p3) {
+    //   return [p1, p2, p3]
+    // }
+    // var newString = 'abc1234*&^';
+    // const result = newString.replace(/([^\d]*)([\d]*)([\w]*)/, replacer);
+    // console.log(result)
+
+    // var reg = /(^\s+)|(\s+$)/g;
+    // var str = ' name'
+    // console.log(reg.test(str))
+
+    // var re = /[0-9]+/g;
+    // var re1 = /[\u4e00-\u9fa5]+/g;
+    // var str = '2016-01-02';
+    // var str1 = 'hah哈哈哈hh我身上'
+    // console.log(str.match(re))
+    // console.log(str1.match(re1))
+
+    // const reg = /.*/;
+    // const str1 = '\n123'
+    // console.log(str1.match(reg))
+
+    // const reg = /正则|表达/
+    // const str1 = 'hahh表达式'
+    // const str2 = '表达式'
+    // console.log(str1.match(reg))
+
+    // const reg = /\./
+    // const str = 'a.b.c.d'
+    // console.log(str.match(reg)) // .
+
+    // const reg1 = /\\\\/g
+    // const str1 = "\\\\"
+    // console.log(str1.match(reg1)) // \\
+
+    // const str = 'abcab';
+    // const reg = /(abc)/;
+    // console.log(reg.test(str))
+    // const str = 'abc';
+    // const reg = /[adv]/;
+    // console.log(str.match(reg))
+
+    // const str = 'abc';
+    // const reg = /a^/;
+    // console.log(reg.test(str))
+
+    // const reg = /^a/
+    // const str = 'aaa'
+    // const str1 = 'bac'
+    // console.log(reg.test(str)) // true
+    // console.log(reg.test(str1)) // false
+
+    // const reg = /[^abc]/g
+    // const str = '123'
+    // console.log(str.match(reg)) // ['1', '2', '3']
+
+    // const reg = /a$/;
+    // const str = 'abca';
+    // console.log(reg.test(str))
+
+    // const reg = /[abc]*/  // 贪婪
+    // const str = 'ababcdbc'
+
+    // const reg1 = /[db]*?c/ // 惰性
+    // console.log(str.match(reg1)) // [ 'abc' ]
+
+    // console.log(str.match(reg)) // [ 'abcbcbc' ]
+
+    // var str = "Is this all there is";
+    // var patt1 = /is(?= all)/;
+    // console.log(str.match(patt1));
+
+    // const reg = /ef(?=abc)/g
+    // const str = 'efabcefabc'
+    // console.log(str.replace(reg, '')) // abcabc
+
+
+    // const reg = /(?<name>[a-zA-Z]{3,6})(?<age>\d{2})/
+    // const str = 'xiaoming23';
+    // console.log(str.match(reg).groups.name) // xiaoming
+    // console.log(str.match(reg).groups.age) // 23
+
+    // const reg = /<(\w+)><\/(\1)>/g
+    // // 验证一下
+    // html.match(reg) // '<div></div>'
+
+    const reg = /<(\w+)><\/(\1)>/g
+    const reg1 = /<(\w+)>([\s\S]*)<\/(\1)>/g
+    const reg2 = /<(\w+)([^>]*)\/>/g  // /<(\w+)([^>]*)\/>/
+    // const reg3 = /<(\w+)>(([\s\S]*)<\/(\1)>)/g
+    const reg3 = /<(\w+)([^>]*)>(([\s\S]*)<\/(\1)>)|(([^>]*)\/>)/g;
+    const reg4 = /<\s*([^>]+)>([\s\S]*)<\/\s*\1\s*>/g;
+
+    const str = '<div></div>';
+    const str1 = `<div>
+
+    </div>`;
+    const str2 = '<img src="" />';
+    const str3 = `<div title="123">
+    </div>`;
+    const str4 = `<div>
+    <div>
+    <h1></h1>
+    <p>
+      <span></span>
+    </p>
+  </div>
+</div>`
+
+    const qian = '123456789';
+
+
+
+    // console.log(str1.match(reg1))
+    // console.log(reg2.test(str2))
+    // console.log(reg3.test(str3))
+    // console.log(reg4.test(str4))
+    // console.log(reg3.exec(str3))
+
+    // var html = '<b class="hello">Hello</b><i>world</i>';
+    // var tag = /<(\w+)([^>]*)>(.*?)<\/\1>/g;
+    // var match = tag.exec(html);
+    // console.log(match)
+
+    const reg5 = /(?!^)(?=(\d{3})+$)/g
+    console.log(qian.replace(reg5, ","));
+
+    Object.defineProperty(obj, key, {
+      enumerable: true,
+      configurable: true,
+      get: function () {
+        return val;
+      },
+      set: function (newVal) {
+        if (newVal === val) return;
+        cb(newVal)
+      }
+    });
+
+
+  </script>
+</body>
+
+</html>

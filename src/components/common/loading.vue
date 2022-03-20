@@ -1,6 +1,6 @@
  <template>
   <div class="page-loading" v-show="isShowLoading">
-    <img width="100px" height="100px" :src="imgSrc"/>
+    <img width="100px" height="100px" :src="imgSrc" />
   </div>
 </template>
 <script>
@@ -12,19 +12,19 @@ export default {
       default: true
     }
   },
-  data() {
+  data () {
     return {
-      imgSrc: require("../../../static/img/loding.gif")
+      imgSrc: require("../../../static/img/loding2.gif")
     };
   },
   methods: {},
   computed: {
-    isShowLoading() {
+    isShowLoading () {
       console.log("loading");
       return this.isShow;
     }
   },
-  mounted() {
+  mounted () {
   }
 };
 </script>
@@ -37,12 +37,11 @@ export default {
   height: 100%;
   background: #fff;
   z-index: 1000;
-  display:flex;
-  justify-content:center;
+  display: flex;
+  justify-content: center;
   align-items: center;
 }
 
 .page-loading img {
-
 }
 </style>

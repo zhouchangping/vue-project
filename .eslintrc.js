@@ -11,7 +11,9 @@ module.exports = {
   //"parser": "babel-eslint",
   "extends": [
     "eslint:recommended", // 推荐规则
-    "plugin:vue/essential"
+    "plugin:vue/essential",
+    // "eslint-config-airbnb-base"
+    // "eslint-config-standard",
   ],
   "globals": {
     "Atomics": "readonly",
@@ -29,6 +31,11 @@ module.exports = {
     // "html" // eslint-plugin-html
   ],
   "rules": {
+    "complexity": [
+      'warn',
+      { max: 10 }
+    ],
+    "vue/html-self-closing": "off",
     "vue/no-parsing-error": [2, { // 非闭合标签
       "x-invalid-end-tag": false
     }],

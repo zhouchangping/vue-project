@@ -4,7 +4,7 @@ const path = require("path");
 const config = require("../config");
 // const vueLoaderConfig = require("./vue-loader.conf");
 //const HappyPack = require('happypack') // 通过多进程模型，来加速代码构建
-function resolve(dir) {
+function resolve (dir) {
   return path.join(__dirname, "..", dir);
 }
 module.exports = {
@@ -30,8 +30,8 @@ module.exports = {
       },
       /* config.module.rule('js') */
       {
-      // 它会应用到普通的 `.js` 文件
-      // 以及 `.vue` 文件中的 `<script>` 块
+        // 它会应用到普通的 `.js` 文件
+        // 以及 `.vue` 文件中的 `<script>` 块
         test: /\.js$/,
         use: ["babel-loader?cacheDirectory=true"],
         include: path.join(__dirname, "../src")
@@ -113,21 +113,8 @@ module.exports = {
     extensions: [".js", ".vue", ".json"], // 减少文件查找
     alias: {
       "@": resolve("src"),
-      "vue$": "vue/dist/vue.esm.js", // 减少编译时代码30kb
+      // "vue$": "vue/dist/vue.esm.js", // 减少编译时代码30kb
       //"Common": resolve("../src/common/"), // 根据当前目录配置，其他地方直接引用 common,代表src下common目录
-
     }
-  },
-  node: {
-    // prevent webpack from injecting useless setImmediate polyfill because Vue
-    // source contains it (although only uses it if it's native).
-    setImmediate: false,
-    // prevent webpack from injecting mocks to Node native modules
-    // that does not make sense for the client
-    dgram: "empty",
-    fs: "empty",
-    net: "empty",
-    tls: "empty",
-    child_process: "empty"
   }
 };

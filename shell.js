@@ -11,7 +11,7 @@ if (shell.exec("npm run build").code !== 0) {//执行npm run build 命令
 shell.cp("-r", "./dist/*", "../vue-zhouzhou");
 shell.cd("../vue-zhouzhou");
 shell.exec("git add .");
-shell.exec("git commit -m 'autocommit'");
+shell.exec("git commit -m 'feat:autocommit'");
 shell.exec("git push");
 
 

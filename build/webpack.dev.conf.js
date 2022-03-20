@@ -5,7 +5,7 @@ const config = require("../config");
 const merge = require("webpack-merge");
 
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
-// const SkeletonWebpackPlugin = require("vue-skeleton-webpack-plugin");
+// const SkeletonWebpackPlugin = require("vue-skeleton-webpack-plugin"); // 自定义骨架屏
 
 const path = require("path");
 const baseWebpackConfig = require("./webpack.base.conf");
@@ -14,9 +14,21 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const FriendlyErrorsPlugin = require("friendly-errors-webpack-plugin");
 const portfinder = require("portfinder");
 const HappyPack = require("happypack"); // 用多进程，处理loader
-const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin; // 分析
+// const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin; // 分析
 const HOST = process.env.HOST;
+// console.log(HOST+ "---------------------");
 const PORT = process.env.PORT && Number(process.env.PORT);
+
+
+// 定义参数配置
+const argv = require("yargs").argv;
+// 获取脚本种的参数e
+// console.log(argv);
+const env = argv.env;
+console.log(env);
+// // require指定的环境配置文件  这个是一个文件名 看到下面你就理解了
+// const envConfigFile = "../config/" + "test."+ env + ".js";
+
 
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
@@ -34,7 +46,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       rewrites: [{
         from: /.*/,
         to: path.posix.join(config.dev.assetsPublicPath, "index.html")
-      }, ],
+      },],
     },
     hot: true,
     contentBase: false, // since we use CopyWebpackPlugin.
@@ -54,6 +66,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     quiet: true, // necessary for FriendlyErrorsPlugin
     watchOptions: {
       poll: config.dev.poll,
+      // ignored: /node_modules/ // 忽略
     }
   },
   plugins: [
@@ -74,11 +87,12 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       loaders: ["babel-loader?cacheDirectory"]
     }),
     new webpack.DefinePlugin({
+      // "windowArgs": require(envConfigFile),
       "process.env": require("../config/dev.env") // 定义全局变量，这里是NODE_ENV
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.
-    new webpack.NoEmitOnErrorsPlugin(),
+    // new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.
+    // new webpack.NoEmitOnErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
       // filename: 'index.html',
@@ -94,7 +108,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       ignore: [".*"]
     }]),
     new VueLoaderPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
+    // new webpack.NoEmitOnErrorsPlugin(),
     // new SkeletonWebpackPlugin({
     //   webpackConfig: require("./webpack.skeleton.conf"),
     //   quiet: true

@@ -1,5 +1,5 @@
 <template>
-  <div class="pageContainer" v-show="isShowContainer">
+  <scroll>
     <div class="page-better">
       <div class="page-main" v-for="item in dataArtical" v-on:click="goToDetail(item.url)" :key="item.id">
         <h1 class="page-titile">{{item.pageTitle}}</h1>
@@ -17,18 +17,25 @@
         </div>
       </div>
     </div>
-    <refresh-fs v-bind:isLoading="isLoading"></refresh-fs>
-  </div>
+    <top-nav v-bind:articalItems="articalItems" :text="title"></top-nav>
+    <!-- <loadings :isShow="isShowLoading"></loadings> -->
+  </scroll>
 </template>
 <script>
-//import { mapMutations } from "vuex";
-import refresh from "../common/refresh.vue";
-import BScroll from "better-scroll";
+import topNav from "@/components/common/topNav.vue";
+import scroll from "../common/scroll.vue";
+// import loadings from "@/components/common/loading.vue";
 export default {
   data() {
     return {
-      isLoading: true,
-      isShowContainer: false,
+      title: "css",
+      articalItems: [
+        { title: "javascript", url: "/jsMainPage", id: 1 },
+        { title: "html", url: "/htmlMainPage", id: 2 },
+        { title: "css", url: "/cssMainPage", id: 3 },
+        { title: "面试集合", url: "/faceMainPage", id: 4 },
+        { title: "node", url: "/nodeMainPage", id: 5 },
+      ],
       isActive: false,
       avatar: require("../../common/images/avater.jpg"),
       dataArtical: [
@@ -112,17 +119,11 @@ export default {
     this.$store.commit("SET_ISCHILDSHOWS", false); // 该方法比较靠谱
   },
   mounted() {
-    var self = this;
-    self.isLoading = false;
-    self.isShowContainer = true;
-    let wrapper = document.querySelector(".pageContainer");
-    new BScroll(wrapper, {
-      scrollY: true,
-      click: true
-    });
   },
   components: {
-    "refresh-fs": refresh
+    "top-nav": topNav,
+    "scroll": scroll,
+    // loadings
   }
 };
 </script>

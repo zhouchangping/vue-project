@@ -13,6 +13,6 @@
       "libraryName": "vant",
       "libraryDirectory": "es",
       "style": true
-    }]
+    }, "vant"]
   ] // vue-jsx模式
 }

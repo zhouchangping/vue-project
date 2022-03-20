@@ -1,42 +1,58 @@
 <template>
-  <div class="pageContainer" v-show="isShowContainer">
-    <div class="page-main" v-for="item in dataArtical" v-on:click="goToDetail(item.url)" :key="item.id">
-      <h1 class="page-titile">{{item.pageTitle}}</h1>
-      <div class="page-user-info">
-        <p class="page-p">
-          <img :src="avatar" class="page-user-img">
-          <span class="page-username">{{item.userName}}</span>
-        </p>
-        <p class="page-p">
-          <span class="page-user-time">{{item.pageTime}}</span>
-        </p>
-      </div>
-      <div class="page-artical-msg">
-        <P>{{item.pageInfo}}</P>
+  <scroll>
+    <div class="page-better">
+      <div
+        class="page-main"
+        v-for="item in dataArtical"
+        v-on:click="goToDetail(item.url)"
+        :key="item.id"
+      >
+        <h1 class="page-titile">{{ item.pageTitle }}</h1>
+        <div class="page-user-info">
+          <p class="page-p">
+            <img :src="avatar" class="page-user-img" />
+            <span class="page-username">{{ item.userName }}</span>
+          </p>
+          <p class="page-p">
+            <span class="page-user-time">{{ item.pageTime }}</span>
+          </p>
+        </div>
+        <div class="page-artical-msg">
+          <P>{{ item.pageInfo }}</P>
+        </div>
       </div>
     </div>
-    <refresh-fs v-bind:isLoading="isLoading"></refresh-fs>
-  </div>
+    <top-nav v-bind:articalItems="articalItems" :text="title"></top-nav>
+    <!-- <loadings :isShow="isShowLoading"></loadings> -->
+  </scroll>
 </template>
 <script>
-//import { mapMutations } from "vuex";
-import refresh from "../common/refresh.vue";
+import scroll from "../common/scroll.vue";
+import topNav from "@/components/common/topNav.vue";
+// import loadings from "@/components/common/loading.vue";
 export default {
-  data() {
+  data () {
     return {
-      isLoading: true,
-      isShowContainer: false,
+      title: "node",
+      articalItems: [
+        { title: "javascript", url: "/jsMainPage", id: 1 },
+        { title: "html", url: "/htmlMainPage", id: 2 },
+        { title: "css", url: "/cssMainPage", id: 3 },
+        { title: "面试集合", url: "/faceMainPage", id: 4 },
+        { title: "node", url: "/nodeMainPage", id: 5 },
+      ],
+      // isShowLoading: true,
       isActive: false,
       avatar: require("../../common/images/avater.jpg"),
       dataArtical: [
         {
-          pageTitle: "Vue.js 运行机制全局概览",
+          pageTitle: "WebSocket聊天室",
           img: require("../../common/images/avater.jpg"),
           userName: "寻找许仙",
-          pageInfo:
-            "这一节笔者将为大家介绍一下 Vue.js 内部的整个流程，希望能让大家对全局有一个整体的印象，然后我们再来逐个模块进行讲解。从来没有了解过 Vue.js 实现的同学可能会对一些内容感到疑惑，这是很正常的，这一节的目的主要是为了让大家对整个流程有一个大概的认识，算是一个概览预备的过程，当把整本小册认真读完以后，再来阅读这一节，相信会有收获的。",
-          pageTime: "2019-01-24",
-          url: "mainPageDetail"
+          pageInfo: "WebSocket聊天室",
+          pageTime: "2020-12-28",
+          url: "ws",
+          id: 1,
         },
         {
           pageTitle: "docker",
@@ -51,26 +67,30 @@ export default {
     };
   },
   methods: {
-    mainTransition() {
+    mainTransition () {
       this.isActive = !this.isActive;
       this.isUl = !this.isUl;
     },
-    goToDetail(val) {
+    goToDetail (val) {
       this.$router.push({ name: val });
     }
   },
-  activated() {
+  activated () {
     // keep-alive 组件激活时调用。
-    this.$store.commit("SET_TITLES", "node集合"); // 该方法比较靠谱
-    this.$store.commit("SET_ISCHILDSHOWS", false); // 该方法比较靠谱
+    // this.$store.commit("SET_TITLES", "node集合"); // 该方法比较靠谱
+    // this.$store.commit("SET_ISCHILDSHOWS", false); // 该方法比较靠谱
   },
-  mounted() {
-    var self = this;
-    self.isLoading = false;
-    self.isShowContainer = true;
+  mounted () {
+    // var that = this;
+    // setTimeout(()=> {
+    //   that.isShowLoading = false;
+    // }, 2000);
   },
   components: {
-    "refresh-fs": refresh
+    // "refresh-fs": refresh,
+    "scroll": scroll,
+    "top-nav": topNav,
+    // loadings
   }
 };
 </script>

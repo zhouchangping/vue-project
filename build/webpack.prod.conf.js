@@ -15,9 +15,12 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin"); // 压缩js uglify-we
 const HappyPack = require("happypack");
 const env = require("../config/prod.env");
 //const InlineSourcePlugin = require('html-webpack-inline-source-plugin');
-
+process.env.NODE_ENV == "production";
 
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
+
+
+const firstPlugin = require("../plugins/webpack-firstPlugin");
 
 //const minimist = require("minimist"); // 分析参数
 //var args = minimist(process.argv.slice(2));
@@ -43,6 +46,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     chunkFilename: utils.assetsPath("js/[id].[chunkhash].js")
   },
   plugins: [
+    new firstPlugin(),
     new VueLoaderPlugin(),
     new HappyPack({
       id: "babel",
@@ -79,8 +83,8 @@ const webpackConfig = merge(baseWebpackConfig, {
           inline: false
         }
       } : {
-        safe: true
-      }
+          safe: true
+        }
     }),
     // keep module.id stable when vendor modules does not change
     new webpack.HashedModuleIdsPlugin(), // 不管再添加任何新的本地依赖，对于每次构建，vendor hash 都应该保持一致
@@ -89,7 +93,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     // split vendor js into its own file    CommonsChunkPlugin是一个可选的用于建立一个独立文件(又称作 chunk)的功能，这个文件包括多个入口 chunk 的公共模块。
     new webpack.optimize.CommonsChunkPlugin({ // 提取第三方插件 生成vendor
       name: "vendor",
-      minChunks(module) {
+      minChunks (module) {
         // any required modules inside node_modules are extracted to vendor,提取用到的node_MOdules
         return ( // 未找到值则为-1
           module.resource &&
@@ -167,7 +171,6 @@ const webpackConfig = merge(baseWebpackConfig, {
     // }),
     // new OmmitCSSPlugin(),
 
-    new VueLoaderPlugin(),
     // new ParallelUglifyPlugin({
     //   uglifyJS: {
     //     //...这里放uglifyJS的参数

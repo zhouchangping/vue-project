@@ -1,28 +1,40 @@
 <template>
-  <div class="page-top" id="page-top">
-    <div class="page-top-btn" v-bind:class="[isActive ? 'btn-rotate-true' : '']" v-on:click.stop.prevent="mainTransition($event)">
-      <div>
-        <span class="el-btn-bar"></span>
-        <span class="el-btn-bar"></span>
+  <header class="page-top">
+    <div class="page-top-min">
+      <div class="page-top-btn" v-bind:class="[isActive ? 'btn-rotate-true' : '']"
+        v-on:click.stop.prevent="mainTransition($event)">
+        <div>
+          <span class="el-btn-bar"></span>
+          <span class="el-btn-bar"></span>
+        </div>
       </div>
+      <div class="page-icon" @click="goToMain">
+        <i class="iconfont icon-zhuyedianji-copy"></i>
+      </div>
+      <div class="page-top-title">{{title}}</div>
+      <transition name="fadeMask">
+        <div class="page-main-mask" v-show="isMaskShow" @click.stop.prevent="closeMask"></div>
+      </transition>
+      <transition name="fade">
+        <div class="page-main-ul" v-show="isUl" v-if="Items.length">
+          <ul calss="page-top-ul">
+            <li v-for="item in Items" @click.stop.prevent="closeMask" :key="item.id" class="page-top-li">
+              <router-link :to="{path: item.url}" class="page-a">{{item.title}}</router-link>
+            </li>
+          </ul>
+        </div>
+      </transition>
     </div>
-    <div class="main-icon" @click="goToMain">
-      <i class="iconfont icon-zhuyedianji-copy"></i>
-    </div>
-    <div class="top-title">{{title}}</div>
-    <transition name="fadeMask">
-      <div class="main-mask" v-show="isMaskShow" @click.stop.prevent="closeMask"></div>
-    </transition>
-    <transition name="fade">
-      <div class="main-ul" v-show="isUl" v-if="Items.length">
-        <ul>
-          <li v-for="item in Items" @click.stop.prevent="closeMask" :key="item.id" class="page-li">
+    <div class="page-top-big">
+      <div class="page-main-ul" v-if="Items.length">
+        <ul class="page-top-ul">
+          <li v-for="item in Items" @click.stop.prevent="closeMask" :key="item.id" class="page-top-li">
             <router-link :to="{path: item.url}" class="page-a">{{item.title}}</router-link>
           </li>
         </ul>
       </div>
-    </transition>
-  </div>
+    </div>
+  </header>
 </template>
 <script>
 import { mapGetters } from "vuex";
@@ -38,7 +50,7 @@ export default {
     text: {
       type: String,
       default: "hha",
-    }
+    },
   },
   data() {
     return {
@@ -46,18 +58,23 @@ export default {
       isActive: false,
       isUl: false, // 栏目下拉
       isMaskShow: false,
-      Items: this.articalItems // 异步传递过来后不会再次赋值给items;
+      title: this.text,
+      Items: this.articalItems, // 异步传递过来后不会再次赋值给items;
     };
   },
   methods: {
     mainTransition() {
+      document.body.style.overflow = "hidden";
+      // document.body.style.position = "fixed";//果然是因为加了fixed，就会自动回滚到顶部
       this.isMaskShow = !this.isMaskShow;
       this.isActive = !this.isActive;
       this.isUl = !this.isUl;
-      // this.$emit("activeText");
     },
     closeMask(e) {
       e.stopPropagation();
+      document.body.style.overflow = "auto";
+      document.body.style.position = "static";
+
       this.isMaskShow = !this.isMaskShow;
       this.isActive = !this.isActive;
       this.isUl = !this.isUl;
@@ -66,29 +83,30 @@ export default {
       var indexNum = index + 1;
       this.$router.push({
         path: "/mainPage" + indexNum,
-        query: { plan: "private" }
+        query: { plan: "private" },
       });
     },
     goToMain() {
       this.$router.push({ path: "/jsMainPage" });
-    }
+    },
   },
   computed: {
     // 扩展，获取标题
-    ...mapGetters([
-      // 相当于
-      "title"
-    ]),
-    texts() {
-      console.log(this.text);
-      return this.text;
-    }
+    // ...mapGetters([
+    //   // 相当于
+    //   "title",
+    // ]),
   },
-  watch: {  // 获取父组件异步props
-    articalItems(nv){
+  watch: {
+    // 获取父组件异步props
+    articalItems(nv) {
       this.Items = nv;
       //console.log(this.articalItems);
     },
+    text(val) {
+      console.log(val);
+      this.title = val;
+    }
     // text(val) { // 如果父组件creted设置过， 后面mounted又设置了，也会监听到。
     //   console.log("watch" + this.text);
     //   this.text = val;
@@ -103,49 +121,22 @@ export default {
     // this.text = this.text + "23232";
     // console.log(this.text + "mounted");
     console.log("top vue mounted");
-  }
+  },
 };
 </script>
-<style scoped>
+<style scoped lang="scss">
+@import "@/common/css/base.scss"; // sass
+
 :root {
   --mainColor: red;
-  --fontSize: 14px;
-  --bodyCommon: {
-    position: relative;
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    font-family: PingFang SC, Helvetica Neue, Helvetica, Hiragino Sans GB,
-      Microsoft YaHei, 微软雅黑, Arial, sans-serif;
-  }
-}
-
-ul {
-  max-height: 8rem;
-  overflow: scroll;
-  font-size: var(--fontSize);
-  padding: 0 0.5rem 0.5rem;
-}
-
-.page-li {
-  position: relative;
-}
-
-.page-li:after {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  content: "";
-  height: 0.026667rem;
-  width: 100%;
-  background-color: #eaeaea;
-  -webkit-transform: scaleY(0.5);
-  transform: scaleY(0.5);
-  -webkit-transform-origin: center bottom;
-  transform-origin: center bottom;
+  --fontSize: 14px; // 定义变量
 }
 
 .page-top {
+
+}
+
+.page-top-min {
   position: fixed;
   top: 0;
   left: 0;
@@ -156,8 +147,24 @@ ul {
   background-color: #fff;
   text-align: center;
   line-height: 1.6rem;
-  z-index: 3;
+  display: none;
+  z-index: 10000;
   box-shadow: 0 0.053333rem 0.106667rem rgba(0, 0, 0, 0.1);
+}
+
+.page-top-ul {
+  display: flex;
+  max-height: 8rem;
+  // overflow: scroll;
+  font-size: var(--fontSize);
+  padding: 0 10px 0 10px;
+}
+
+.page-top-li {
+  position: relative;
+  flex: 1;
+  padding: 0px 10px;
+  display: inline-block;
 }
 
 .page-top-btn {
@@ -165,27 +172,27 @@ ul {
   z-index: 2;
   left: 0.266667rem;
   height: 1.6rem;
-  display: block;
+  display: none;
+}
+
+.page-icon {
+  position: absolute;
+  font-size: 0.64rem;
+  width: 1.066667rem;
+  right: 0.533333rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 4;
+  display: none;
 }
 
 .page-a {
   display: inline-block;
+  color: #000;
+  text-decoration: none;
   display: block;
   width: 100%;
   line-height: 1.6rem;
-  height: 100%;
-}
-
-.btn-rotate-true span:first-child {
-  transform-origin: 0 0;
-  width: 0.746667rem;
-  transform: rotate(45deg);
-}
-
-.btn-rotate-true span:nth-child(2) {
-  transform-origin: 0 0;
-  width: 0.746667rem;
-  transform: rotate(-45deg);
 }
 
 .page-top-btn .el-btn-bar {
@@ -208,29 +215,51 @@ ul {
   border: none;
 }
 
-.top-title {
+.btn-rotate-true span:first-child {
+  transform-origin: 0 0;
+  width: 0.746667rem;
+  transform: rotate(45deg);
+}
+
+.btn-rotate-true span:nth-child(2) {
+  transform-origin: 0 0;
+  width: 0.746667rem;
+  transform: rotate(-45deg);
+}
+
+.page-top-title {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   font-size: 16px;
   font-weight: 600;
+  display: none;
 }
 
-.main-ul {
-  position: relative;
-  top: 1.6rem;
-  bottom: 1.6rem;
-  z-index: 2;
-  left: 0;
-  right: 0;
-  z-index: 1;
+.page-main-ul {
   width: 100vw;
   background: #fff;
   color: #333;
   text-align: left;
   box-shadow: 0 0.053333rem 0.106667rem rgba(0, 0, 0, 0.1);
+  margin-bottom: 1px;
 }
+
+
+
+.page-top-big {
+  position: relative;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  background: #fff;
+  color: #333;
+  text-align: left;
+  display: block;
+  box-shadow: 0 0.053333rem 0.106667rem rgba(0, 0, 0, 0.1);
+}
+
 
 .fade-enter-active,
 .fade-leave-active {
@@ -256,7 +285,7 @@ ul {
   opacity: 0;
 }
 
-.main-mask {
+.page-main-mask {
   position: fixed;
   top: 1.6rem;
   bottom: 0;
@@ -267,18 +296,51 @@ ul {
   opacity: 0.7;
 }
 
-.main-icon {
-  position: absolute;
-  font-size: 0.64rem;
-  width: 1.066667rem;
-  right: 0.533333rem;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 4;
-}
+@media (max-width: 719px) {
+  .page-top-btn {
+    display: block;
+  }
+  .page-icon {
+    display: block;
+  }
+  .page-top-title {
+    display: block;
+  }
+  .page-top-min {
+    display: block;
+  }
+  .page-main-ul {
+    position: relative;
+    top: 1.6rem;
+    bottom: 1.6rem;
+    z-index: 2;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    width: 100vw;
+    background: #fff;
+    color: #333;
+    text-align: left;
+    box-shadow: 0 0.053333rem 0.106667rem rgba(0, 0, 0, 0.1);
+  }
 
-a {
-  text-decoration: none;
-  color: #000;
+  .page-top-big {
+    display: none;
+  }
+
+  .page-top-li {
+    font-size: 14px;
+    display: block;
+    padding: 0px 10px;
+  }
+
+  .page-a {
+    line-height: 1.6rem;
+  }
+
+  .page-top-li:after {
+    // @extend .one-px;
+    @include one-px(0px);
+  }
 }
 </style>

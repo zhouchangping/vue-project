@@ -1,17 +1,17 @@
 <template>
-    <div class="pageContainer" ref='wrapper'>
-      <slot></slot>
-    </div>
+  <main class="page-container" ref="wrapper">
+    <slot></slot>
+  </main>
 </template>
 <script type="text/ecmascript-6">
 import BScroll from "better-scroll";
 export default {
   props: {
     /**
-       * 1 滚动的时候会派发scroll事件，会截流。
-       * 2 滚动的时候实时派发scroll事件，不会截流。
-       * 3 除了实时派发scroll事件，在swipe的情况下仍然能实时派发scroll事件
-       */
+     * 1 滚动的时候会派发scroll事件，会截流。
+     * 2 滚动的时候实时派发scroll事件，不会截流。
+     * 3 除了实时派发scroll事件，在swipe的情况下仍然能实时派发scroll事件
+     */
     probeType: {
       type: Number,
       default: 2
@@ -38,8 +38,8 @@ export default {
       default: false
     },
     /**
-       * 列表的数据
-       */
+     * 列表的数据
+     */
     data: {
       type: Array,
       default: null
@@ -73,7 +73,7 @@ export default {
       default: 20
     }
   },
-  data() {
+  data () {
     return {
       length: 0
     };
@@ -83,22 +83,27 @@ export default {
       return this.length * 100;
     }
   },
-  mounted() {
+  mounted () {
     let that = this;
+    // console.log(12313);
     // 保证在DOM渲染完毕后初始化better-scroll
     setTimeout(() => {
       that._initScroll();
     }, 20);
-    window.onresize = function () {
-      console.log("refresh");
-      that.$nextTick(() => {
-        that.refresh();
-      });
-    };
+    // window.onresize = function () {
+    //   console.log("refresh");
+    //   // console.log(that.scroll);
+    //   // that.refresh();
+    //   that.$nextTick(() => {
+    //     console.log(555);
+    //     that.refresh();
+    //   });
+    // };
   },
   methods: {
-    _initScroll() {
+    _initScroll () {
       if (!this.$refs.wrapper) {
+        console.log(123);
         return;
       }
       // better-scroll的初始化
@@ -109,9 +114,10 @@ export default {
         scrollY: true,
         pullUpLoad: true,
         pullDownRefresh: true,
-        pullUpLoad: {
-          threshold: 0
-        }
+        resizePolling: 60,
+        // pullUpLoad: {
+        //   threshold: 0
+        // }
       });
       // console.log(this.listenScroll);
       // console.log(this.pulldown);
@@ -175,30 +181,34 @@ export default {
         });
       }
     },
-    disable() {
+    disable () {
       // 代理better-scroll的disable方法
       this.scroll && this.scroll.disable();
     },
-    enable() {
+    enable () {
       // 代理better-scroll的enable方法
       this.scroll && this.scroll.enable();
     },
-    refresh() {
+    refresh () {
       // 代理better-scroll的refresh方法
       this.scroll && this.scroll.refresh();
     },
-    scrollTo() {
+    resize () {
+      // 代理better-scroll的refresh方法
+      this.scroll && this.scroll.resize();
+    },
+    scrollTo () {
       // 代理better-scroll的scrollTo方法
       this.scroll && this.scroll.scrollTo.apply(this.scroll, arguments);
     },
-    scrollToElement() {
+    scrollToElement () {
       // 代理better-scroll的scrollToElement方法
       this.scroll && this.scroll.scrollToElement.apply(this.scroll, arguments);
     }
   },
   watch: {
     // 监听数据的变化，延时refreshDelay时间后调用refresh方法重新计算，保证滚动效果正常
-    data() {
+    data () {
       this.length = this.data.length;
       console.log(this.length);
       setTimeout(() => {

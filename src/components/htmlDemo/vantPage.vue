@@ -159,14 +159,14 @@ oXToZyMdDdbu+IyqoQJBAMWH/Ag8Kr7aPODCUvbE+31WwUy3eNKXXY38ZNxCdT6e
     this.$store.commit("SET_TITLES", "vant"); // 该方法比较靠谱
   },
   mounted() {
-    var that = this;
-    setTimeout(()=> {
-      that.imageList = [
-        "https://img.yzcdn.cn/vant/apple-1.jpg",
-        "https://img.yzcdn.cn/vant/apple-2.jpg"
-      ];
-      that.isShow = false;
-    }, 2000);
+    // var that = this;
+    // setTimeout(()=> {
+    //   that.imageList = [
+    //     "https://img.yzcdn.cn/vant/apple-1.jpg",
+    //     "https://img.yzcdn.cn/vant/apple-2.jpg"
+    //   ];
+    //   that.isShow = false;
+    // }, 2000);
     // that.loading = false;
   },
   deactivated() {},

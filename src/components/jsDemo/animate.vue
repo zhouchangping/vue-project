@@ -6,14 +6,14 @@
 </template>
 <script>
 "use strict";
-import animate from "../../common/js/animate.js";
+import animate from "@/utils/animate.js";
 export default {
-  data() {
+  data () {
     return {};
   },
   methods: {},
-  created() {},
-  mounted() {
+  created () { },
+  mounted () {
     const block = document.getElementById("block");
     // var a1 = new animate.Animator(1000, function(p) {
     // var tx = 100 * p;
@@ -74,7 +74,7 @@ export default {
     const domer = document.getElementById("div");
     block.addEventListener(
       "click",
-      function() {
+      function () {
         var animates = new animate.Animates(domer);
         animates.start("left", 100, 1000, "strongEaseOut");
       },

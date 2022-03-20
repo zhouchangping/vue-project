@@ -1,53 +1,62 @@
 <template>
-  <transition name="fadeMask">
-    <div class="pageContainer" ref="pageContainer">
-      <div class="page-better">
-        <div class="page-main">
-          <h1 class="page-titile">{{dataArtical.pageTitle}}</h1>
-          <div class="page-user-info">
-            <p class="page-p">
-              <img v-lazy="avatar" class="page-user-img">
-              <span class="page-username">{{dataArtical.userName}}</span>
-            </p>
-            <p class="page-p">
-              <span class="page-user-time">{{dataArtical.pageTime}}</span>
-            </p>
-          </div>
-          <div class="page-artical-msg">
-            <p class="page-p-img">
-              <img width="100%" height="50%" class="page-vue-img" v-lazy="vueImage" alt="背景图">
-            </p>
-          </div>
-          <div class="page-artical-msg">
-            <P>{{dataArtical.pageInfo}}</P>
-            <p>
-              本小测连接地址：
-              <a href="https://juejin.im/book/5a36661851882538e2259c0f/section/5a37bbb35188257d167a4d64#heading-3">点击连接</a>
-            </p>
-            <p>
-              vue官网地址：
-              <a href="https://cn.vuejs.org/index.html">点击连接</a>
-            </p>
-            <p>
-              vue慕课网课程官网地址：
-              <a href="https://www.imooc.com/u/index/szcourses/list">点击连接</a>
-            </p>
-            <p>
-              vue技术内幕链接地址：
-              <a href="http://hcysun.me/vue-design/art/">点击连接</a>
-            </p>
-          </div>
+  <scroll>
+    <div class="page-better">
+      <div class="page-main">
+        <h1 class="page-titile">{{ dataArtical.pageTitle }}</h1>
+        <div class="page-user-info">
+          <p class="page-p">
+            <img v-lazy="avatar" class="page-user-img" />
+            <span class="page-username">{{ dataArtical.userName }}</span>
+          </p>
+          <p class="page-p">
+            <span class="page-user-time">{{ dataArtical.pageTime }}</span>
+          </p>
+        </div>
+        <div class="page-artical-msg">
+          <p class="page-p-img">
+            <img
+              width="100%"
+              height="50%"
+              class="page-vue-img"
+              v-lazy="vueImage"
+              alt="背景图"
+            />
+          </p>
+        </div>
+        <div class="page-artical-msg">
+          <P>{{ dataArtical.pageInfo }}</P>
+          <p>
+            本小测连接地址：
+            <a
+              href="https://juejin.im/book/5a36661851882538e2259c0f/section/5a37bbb35188257d167a4d64#heading-3"
+              >点击连接</a
+            >
+          </p>
+          <p>
+            vue官网地址：
+            <a href="https://cn.vuejs.org/index.html">点击连接</a>
+          </p>
+          <p>
+            vue慕课网课程官网地址：
+            <a href="https://www.imooc.com/u/index/szcourses/list">点击连接</a>
+          </p>
+          <p>
+            vue技术内幕链接地址：
+            <a href="http://hcysun.me/vue-design/art/">点击连接</a>
+          </p>
         </div>
       </div>
     </div>
-  </transition>
+    <top-item :text="title"></top-item>
+  </scroll>
 </template>
 <script>
-//  import { mapMutations } from "vuex";
-import BScroll from "better-scroll";
+import scroll from "../common/scroll.vue";
+import topItem from "../common/topItem.vue";
 export default {
-  data() {
+  data () {
     return {
+      title: "vue",
       isActive: false,
       vueImage: require("../../common/images/js/vue.jpg"),
       avatar: require("../../common/images/avater.jpg"),
@@ -62,28 +71,23 @@ export default {
     };
   },
   methods: {
-    mainTransition() {
+    mainTransition () {
       this.isActive = !this.isActive;
       this.isUl = !this.isUl;
     }
   },
-  activated() {
+  activated () {
     // keep-alive 组件激活时调用。
     this.$store.commit("SET_TITLES", "Vue.js 运行机制全局概览"); // 该方法比较靠谱
   },
-  created() {
+  created () {
   },
-  mounted() {
-    let wrapper = this.$refs.pageContainer;
-    this.scroll = new BScroll(wrapper, {
-      scrollY: true,
-      click: true,
-      preventDefaultException: {
-        tagName: /^(INPUT|TEXTAREA|BUTTON|SELECT|CODE|PRE)$/
-      }
-    });
+  mounted () {
   },
-  components: {}
+  components: {
+    scroll,
+    "top-item": topItem
+  }
 };
 </script>
 <style scoped>

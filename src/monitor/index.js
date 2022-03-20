@@ -1,4 +1,4 @@
-/* Copyright (c) 2018-2020 Zuoyebang, All rights reserved.
+/* Copyright (c) 2018-2020 zhouzhou, All rights reserved.
  * @fileoverview 数据上报主入口文件
  * @author songli   | songli@zuoyebang.com
  * @version 1.0 | 2019-02-12 | songli   // 初始版本
@@ -6,13 +6,13 @@
  * Report 是报表容器管理类，自执执行方法
  *
  */
-import tools from './tools';
-import pageLoadInfo from './regPageLoadInfo';
-import errorCollect from './regErrorCollect';
-import ajaxSlowReq from './regAjaxSlowReq';
-import commonParams from './commonParams.js';
-import submitPool from './submitPool';
-import utils from './utils.js';
+import tools from "./tools";
+import pageLoadInfo from "./regPageLoadInfo";
+import errorCollect from "./regErrorCollect";
+import ajaxSlowReq from "./regAjaxSlowReq";
+import commonParams from "./commonParams.js";
+import submitPool from "./submitPool";
+import utils from "./utils.js";
 
 function Report(win_) {
   // 注册数据容器
@@ -66,18 +66,18 @@ Report.prototype = {
   // 离开页面进行性能打点
   initEvent() {
     var hidden, visibilityChange;
-    if (typeof document.hidden !== 'undefined') {
-      hidden = 'hidden';
-      visibilityChange = 'visibilitychange';
-    } else if (typeof document.mozHidden !== 'undefined') {
-      hidden = 'mozHidden';
-      visibilityChange = 'mozvisibilitychange';
-    } else if (typeof document.msHidden !== 'undefined') {
-      hidden = 'msHidden';
-      visibilityChange = 'msvisibilitychange';
-    } else if (typeof document.webkitHidden !== 'undefined') {
-      hidden = 'webkitHidden';
-      visibilityChange = 'webkitvisibilitychange';
+    if (typeof document.hidden !== "undefined") {
+      hidden = "hidden";
+      visibilityChange = "visibilitychange";
+    } else if (typeof document.mozHidden !== "undefined") {
+      hidden = "mozHidden";
+      visibilityChange = "mozvisibilitychange";
+    } else if (typeof document.msHidden !== "undefined") {
+      hidden = "msHidden";
+      visibilityChange = "msvisibilitychange";
+    } else if (typeof document.webkitHidden !== "undefined") {
+      hidden = "webkitHidden";
+      visibilityChange = "webkitvisibilitychange";
     }
     console.log(hidden);
     // 添加监听器

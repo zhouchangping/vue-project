@@ -1,5 +1,5 @@
 <template>
-  <div class="pageContainer" v-show="isShowContainer">
+  <scroll>
     <div class="page-better">
       <div class="page-main" v-for="item in dataArtical" v-on:click="goToDetail(item.url)" :key="item.id">
         <h1 class="page-titile">{{item.pageTitle}}</h1>
@@ -17,19 +17,24 @@
         </div>
       </div>
     </div>
-    <refresh-fs v-bind:isLoading="isLoading"></refresh-fs>
-  </div>
+    <top-nav v-bind:articalItems="articalItems" :text="title"></top-nav>
+  </scroll>
 </template>
 <script>
-//import { mapMutations } from "vuex";
-import refresh from "../common/refresh.vue";
-import BScroll from "better-scroll";
+import topNav from "@/components/common/topNav.vue";
+import scroll from "../common/scroll.vue";
 export default {
   data() {
     return {
+      title: "face",
+      articalItems: [
+        { title: "javascript", url: "/jsMainPage", id: 1 },
+        { title: "html", url: "/htmlMainPage", id: 2 },
+        { title: "css", url: "/cssMainPage", id: 3 },
+        { title: "面试集合", url: "/faceMainPage", id: 4 },
+        { title: "node", url: "/nodeMainPage", id: 5 },
+      ],
       scroll: null,
-      isLoading: true,
-      isShowContainer: false,
       isActive: false,
       avatar: require("../../common/images/avater.jpg"),
       dataArtical: [
@@ -78,17 +83,10 @@ export default {
     this.scroll.refresh();
   },
   mounted() {
-    let that = this;
-    let wrapper = document.querySelector(".pageContainer");
-    that.scroll = new BScroll(wrapper, {
-      scrollY: true,
-      click: true
-    });
-    that.isLoading = false;
-    that.isShowContainer = true;
   },
   components: {
-    "refresh-fs": refresh
+    "top-nav": topNav,
+    "scroll": scroll,
   }
 };
 </script>

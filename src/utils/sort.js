@@ -66,7 +66,6 @@ sort.prototype.insertionSort = function(arr) {
 sort.prototype.shellSort = function(arr) { // 3， 1， 4, 2， 5， 6, 8, 9, 0， 7
   let len = arr.length,
     temp,
-    j,
     gap = 1;
   while (gap < len / 3) {
     gap = gap*3 + 1; // 4
@@ -80,18 +79,16 @@ sort.prototype.shellSort = function(arr) { // 3， 1， 4, 2， 5， 6, 8, 9, 0�
     // 	}
     // 	arr[j + gap] = temp;
     // }
-
     for (let i = gap; i < len; i++) {
       console.log(i + ".....i");
       /* 将a[i]插入到a[i-h]、a[i-2h]、a[i-3h]...中 */
       for (let j = i; j >= gap && (arr[j] < arr[j-gap]); j -= gap) {
-            	console.log(j + "...j");
+        console.log(j + "...j");
         temp = arr[j];
         arr[j] = arr[j-gap];
         arr[j-gap] = temp;
       }
     }
-
   }
   console.log(arr);
   return arr;

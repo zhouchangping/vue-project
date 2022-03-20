@@ -35,7 +35,6 @@ ErrorCollect.prototype = {
       // 客户端时间
       errorInfo["clientTime"] = +new Date();
       this.errorInfoMap[hexMd5] = this.errorOpStatus.INIT;
-
       submitPool.pushDatas(errorInfo);
     }
   },

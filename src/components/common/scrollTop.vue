@@ -27,6 +27,7 @@ export default {
       self.$emit("goTopMove", true);
     },
     mainScrollToTop() {
+      // console.log(88809);
       let self = this;
       let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
       if (scrollTop > 100) {

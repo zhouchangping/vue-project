@@ -54,7 +54,7 @@ let skeletonWebpackConfig = merge(baseWebpackConfig, {
   }),
   plugins: []
 });
-
+console.log(skeletonWebpackConfig.module.rules[0]);
 // important: enable extract-text-webpack-plugin
 skeletonWebpackConfig.module.rules[0].options.loaders = utils.cssLoaders({
   sourceMap: sourceMapEnabled,
