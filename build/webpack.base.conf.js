@@ -113,7 +113,7 @@ module.exports = {
     extensions: [".js", ".vue", ".json"], // 减少文件查找
     alias: {
       "@": resolve("src"),
-      // "vue$": "vue/dist/vue.esm.js", // 减少编译时代码30kb
+      "vue$": "vue/dist/vue.js", // 减少编译时代码30kb
       //"Common": resolve("../src/common/"), // 根据当前目录配置，其他地方直接引用 common,代表src下common目录
     }
   }
